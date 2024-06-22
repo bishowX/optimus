@@ -131,7 +131,7 @@ const links2: LinkProp[] = [
                 <ResizablePanelGroup
                     id="resize-panel-group-1"
                     direction="horizontal"
-                    class="h-full max-h-[800px] items-stretch"
+                    class="h-full min-h-[calc(100vh-4.0625rem)] items-stretch"
                 >
                     <ResizablePanel
                         ref="navPanelRef"
