@@ -169,7 +169,11 @@ const links2: LinkProp[] = [
                         "
                     />
 
-                    <ResizablePanel id="resize-panel-3" :default-size="defaultLayout[1]">
+                    <ResizablePanel
+                        id="resize-panel-3"
+                        :default-size="defaultLayout[1]"
+                        class="p-4"
+                    >
                         <!-- Content -->
                         <RouterView />
                     </ResizablePanel>
