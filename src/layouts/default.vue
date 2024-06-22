@@ -106,16 +106,25 @@ const links2: LinkProp[] = [
                     <h1 class="text-4xl"><RouterLink to="/">Optimus</RouterLink></h1>
                     <Separator :decorative="true" orientation="vertical" class="h-10" />
                     <RouterLink
-                        to="/"
-                        class="text-sm font-medium transition-colors hover:text-primary"
+                        activeClass="text-primary"
+                        to="/overview"
+                        class="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                     >
                         Overview
                     </RouterLink>
                     <RouterLink
-                        to="/"
+                        to="/content"
+                        activeClass="text-primary"
                         class="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                     >
                         Content
+                    </RouterLink>
+                    <RouterLink
+                        to="/about"
+                        activeClass="text-primary"
+                        class="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                    >
+                        About
                     </RouterLink>
                 </nav>
                 <div class="ml-auto flex items-center space-x-4">
