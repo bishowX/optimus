@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import UserNav from "@/components/layout/user-nav.vue"
+import ThemeSwitcher from "@/components/theme-switcher.vue"
 
 const defaultLayout = [15, 85]
 const navPanelRef = ref<InstanceType<typeof ResizablePanel>>()
@@ -118,6 +119,7 @@ const links2: LinkProp[] = [
                     </RouterLink>
                 </nav>
                 <div class="ml-auto flex items-center space-x-4">
+                    <ThemeSwitcher />
                     <UserNav />
                 </div>
             </div>
