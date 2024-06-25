@@ -31,7 +31,11 @@ defineProps<NavProps>()
             <template v-for="(link, index) of links">
                 <Tooltip v-if="isCollapsed" :key="`1-${index}`" :delay-duration="0">
                     <TooltipTrigger as-child>
-                        <RouterLink custom :to="link.link" v-slot="{ isActive, href, navigate }">
+                        <RouterLink
+                            custom
+                            :to="link.link"
+                            v-slot="{ isExactActive: isActive, href, navigate }"
+                        >
                             <a
                                 :href="href"
                                 @click="navigate"
@@ -65,7 +69,7 @@ defineProps<NavProps>()
                     v-else
                     custom
                     :to="link.link"
-                    v-slot="{ isActive, href, navigate }"
+                    v-slot="{ isExactActive: isActive, href, navigate }"
                 >
                     <a
                         v-bind="$attrs"
