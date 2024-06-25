@@ -3,12 +3,13 @@ import { Icon } from "@iconify/vue"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { RouterLink } from "vue-router"
 
 export interface LinkProp {
     title: string
     label?: string
     icon: string
-    variant: "default" | "ghost"
+    link: string
 }
 
 interface NavProps {
@@ -30,20 +31,26 @@ defineProps<NavProps>()
             <template v-for="(link, index) of links">
                 <Tooltip v-if="isCollapsed" :key="`1-${index}`" :delay-duration="0">
                     <TooltipTrigger as-child>
-                        <a
-                            href="#"
-                            :class="
-                                cn(
-                                    buttonVariants({ variant: link.variant, size: 'icon' }),
-                                    'h-9 w-9',
-                                    link.variant === 'default' &&
-                                        'dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white'
-                                )
-                            "
-                        >
-                            <Icon :icon="link.icon" class="size-4" />
-                            <span class="sr-only">{{ link.title }}</span>
-                        </a>
+                        <RouterLink custom :to="link.link" v-slot="{ isActive, href, navigate }">
+                            <a
+                                :href="href"
+                                @click="navigate"
+                                v-bind="$attrs"
+                                :class="
+                                    cn(
+                                        'h-9 w-9',
+                                        isActive
+                                            ? buttonVariants({ variant: 'default', size: 'icon' })
+                                            : buttonVariants({ variant: 'ghost', size: 'icon' }),
+                                        isActive &&
+                                            'dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white'
+                                    )
+                                "
+                            >
+                                <Icon :icon="link.icon" class="size-4" />
+                                <span class="sr-only">{{ link.title }}</span>
+                            </a>
+                        </RouterLink>
                     </TooltipTrigger>
                     <TooltipContent side="right" class="flex items-center gap-4">
                         {{ link.title }}
@@ -53,33 +60,38 @@ defineProps<NavProps>()
                     </TooltipContent>
                 </Tooltip>
 
-                <a
-                    v-else
+                <RouterLink
                     :key="`2-${index}`"
-                    href="#"
-                    :class="
-                        cn(
-                            buttonVariants({ variant: link.variant, size: 'sm' }),
-                            link.variant === 'default' &&
-                                'dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white',
-                            'justify-start'
-                        )
-                    "
+                    v-else
+                    custom
+                    :to="link.link"
+                    v-slot="{ isActive, href, navigate }"
                 >
-                    <Icon :icon="link.icon" class="mr-2 size-4" />
-                    {{ link.title }}
-                    <span
-                        v-if="link.label"
+                    <a
+                        v-bind="$attrs"
+                        :href="href"
+                        @click="navigate"
                         :class="
                             cn(
-                                'ml-auto',
-                                link.variant === 'default' && 'text-background dark:text-white'
+                                isActive
+                                    ? buttonVariants({ variant: 'default', size: 'sm' })
+                                    : buttonVariants({ variant: 'ghost', size: 'sm' }),
+                                'justify-start',
+                                isActive &&
+                                    'dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white'
                             )
                         "
                     >
-                        {{ link.label }}
-                    </span>
-                </a>
+                        <Icon :icon="link.icon" class="mr-2 size-4" />
+                        {{ link.title }}
+                        <span
+                            v-if="link.label"
+                            :class="cn('ml-auto', isActive && 'text-background dark:text-white')"
+                        >
+                            {{ link.label }}
+                        </span>
+                    </a>
+                </RouterLink>
             </template>
         </nav>
     </div>
