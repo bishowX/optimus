@@ -54,13 +54,6 @@ const links: LinkProp[] = [
                         Overview
                     </RouterLink>
                     <RouterLink
-                        to="/content"
-                        activeClass="text-primary"
-                        class="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-                    >
-                        Content
-                    </RouterLink>
-                    <RouterLink
                         to="/about"
                         activeClass="text-primary"
                         class="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
