@@ -59,7 +59,7 @@ onBeforeUnmount(() => {
     <form @submit="handleFormSubmit" class="space-y-6">
         <!-- Title -->
         <FormField v-slot="{ componentField }" name="title">
-            <FormItem>
+            <FormItem v-auto-animate>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
                     <Input placeholder="title" v-bind="componentField" />
@@ -73,7 +73,7 @@ onBeforeUnmount(() => {
             <FormItem>
                 <FormLabel>Title Slug</FormLabel>
                 <FormControl>
-                    <Input disabled :model-value="values.title" v-bind="componentField" />
+                    <Input disabled :value="values.title" v-bind="componentField" />
                 </FormControl>
                 <FormDescription />
                 <FormMessage />
@@ -81,7 +81,7 @@ onBeforeUnmount(() => {
         </FormField>
         <!-- snippet -->
         <FormField v-slot="{ componentField }" name="snippet">
-            <FormItem>
+            <FormItem v-auto-animate>
                 <FormLabel>Snippet</FormLabel>
                 <FormControl>
                     <Textarea placeholder="snippet" class="resize-none" v-bind="componentField" />
@@ -92,7 +92,7 @@ onBeforeUnmount(() => {
         <!-- content -->
 
         <FormField v-slot="{ componentField }" name="content">
-            <FormItem>
+            <FormItem v-auto-animate>
                 <FormLabel>Content</FormLabel>
                 <FormControl>
                     <EditorContent :editor="editor" v-bind="componentField" />
