@@ -50,7 +50,7 @@ const editor = new Editor({
     extensions: [Document, Paragraph, Text, Heading],
     onUpdate(props) {
         const html = props.editor.getHTML()
-        setFieldValue("content", html === "<p></p>" ? "" : html)
+        setFieldValue("content", props.editor.getText().trim() ? html : "")
     }
 })
 
