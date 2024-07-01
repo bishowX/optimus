@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { onBeforeUnmount } from "vue"
+import { computed, onBeforeUnmount } from "vue"
+import slugify from "slugify"
+
+// Tittap
 import { Editor, EditorContent } from "@tiptap/vue-3"
 import Document from "@tiptap/extension-document"
 import Paragraph from "@tiptap/extension-paragraph"
@@ -10,7 +13,6 @@ import Heading from "@tiptap/extension-heading"
 import { useForm } from "vee-validate"
 import { toTypedSchema } from "@vee-validate/zod"
 import * as z from "zod"
-
 import {
     FormControl,
     FormDescription,
@@ -19,6 +21,7 @@ import {
     FormLabel,
     FormMessage
 } from "@/components/ui/form"
+
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
@@ -31,18 +34,23 @@ const formSchema = toTypedSchema(
     })
 )
 
-const { handleSubmit, values, setValues } = useForm({
-    validationSchema: formSchema
+const { handleSubmit, values, setFieldValue } = useForm({
+    validationSchema: formSchema,
+    initialValues: {
+        content: "",
+        snippet: "",
+        title: ""
+    }
 })
 
+const slug = computed(() => slugify(values.title as string, { lower: true }))
+
 const editor = new Editor({
-    content: "<p>I’m running Tiptap with Vue.js. 🎉</p>",
+    content: "",
     extensions: [Document, Paragraph, Text, Heading],
     onUpdate(props) {
         const html = props.editor.getHTML()
-        setValues({
-            content: html === "<p></p>" ? "" : html
-        })
+        setFieldValue("content", html === "<p></p>" ? "" : html)
     }
 })
 
@@ -71,9 +79,9 @@ onBeforeUnmount(() => {
         <!-- Title slug -->
         <FormField v-slot="{ componentField }" name="titleSlug">
             <FormItem>
-                <FormLabel>Title Slug</FormLabel>
+                <FormLabel>Slug</FormLabel>
                 <FormControl>
-                    <Input disabled :value="values.title" v-bind="componentField" />
+                    <Input disabled :value="slug" v-bind="componentField" />
                 </FormControl>
                 <FormDescription />
                 <FormMessage />
