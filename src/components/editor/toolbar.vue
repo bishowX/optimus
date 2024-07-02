@@ -10,7 +10,7 @@ defineProps<{
 <template>
     <button
         type="button"
-        @click="editor.chain().toggleHeading({ level: 1 }).run()"
+        @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
         :class="{ 'bg-red-300': editor.isActive('heading', { level: 1 }) }"
     >
         H1
