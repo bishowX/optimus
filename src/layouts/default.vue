@@ -2,14 +2,14 @@
 import { ref } from "vue"
 import { RouterLink, RouterView } from "vue-router"
 
-import Nav from "@/components/layout/top-nav.vue"
-import type { LinkProp } from "@/components/layout/top-nav.vue"
+import type { LinkProp } from "@/components/layout/side-nav.vue"
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"
 import { Separator } from "@/components/ui/separator"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
+import SideNav from "@/components/layout/side-nav.vue"
 import UserNav from "@/components/layout/user-nav.vue"
-import ThemeSwitcher from "@/components/theme-switcher.vue"
+import ThemeSwitcher from "@/components/layout/theme-switcher.vue"
 
 const defaultLayout = [15, 85]
 const navPanelRef = ref<InstanceType<typeof ResizablePanel>>()
@@ -89,7 +89,7 @@ const links: LinkProp[] = [
                         @expand="onExpand"
                         @collapse="onCollapse"
                     >
-                        <Nav :is-collapsed="isCollapsed" :links="links" />
+                        <SideNav :is-collapsed="isCollapsed" :links="links" />
                     </ResizablePanel>
                     <ResizableHandle
                         id="resize-handle-1"
