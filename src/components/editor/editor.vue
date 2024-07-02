@@ -29,7 +29,7 @@ const editor = new Editor({
     },
     editorProps: {
         attributes: {
-            class: "outline-none"
+            class: "w-full max-w-full prose dark:prose-invert prose-sm sm:prose sm:max-w-full lg:prose-lg focus:outline-none"
         }
     }
 })
