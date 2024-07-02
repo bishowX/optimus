@@ -7,6 +7,12 @@ import Document from "@tiptap/extension-document"
 import Paragraph from "@tiptap/extension-paragraph"
 import Text from "@tiptap/extension-text"
 import Heading from "@tiptap/extension-heading"
+import Bold from "@tiptap/extension-bold"
+import Italic from "@tiptap/extension-italic"
+import Underline from "@tiptap/extension-underline"
+import Strike from "@tiptap/extension-strike"
+import Subscript from "@tiptap/extension-subscript"
+import Supercript from "@tiptap/extension-superscript"
 import Toolbar from "./toolbar.vue"
 
 const props = defineProps<{
@@ -20,7 +26,18 @@ const emits = defineEmits<{
 
 const editor = new Editor({
     content: props.content,
-    extensions: [Document, Paragraph, Text, Heading],
+    extensions: [
+        Document,
+        Paragraph,
+        Text,
+        Heading,
+        Bold,
+        Italic,
+        Underline,
+        Strike,
+        Subscript,
+        Supercript
+    ],
     onUpdate(props) {
         emits("update", props)
     },
@@ -40,9 +57,10 @@ onBeforeUnmount(() => {
 
 <template>
     <div
-        class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background outline-none placeholder:text-muted-foreground has-[.ProseMirror-focused]:outline-none has-[.ProseMirror-focused]:ring-1 has-[.ProseMirror-focused]:ring-ring has-[.ProseMirror-focused]:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+        class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background outline-none placeholder:text-muted-foreground focus-within:outline-none focus-within:ring-1 focus-within:ring-ring focus-within:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
     >
         <Toolbar :editor="editor" />
+        <div class="h-2"></div>
         <EditorContent :editor="editor" />
     </div>
 </template>
