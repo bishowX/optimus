@@ -24,7 +24,7 @@ const formSchema = toTypedSchema(
     z.object({
         title: z.string().min(2).max(100).default(""),
         snippet: z.string().min(2).max(500).default(""),
-        content: z.string().min(1).max(5000).default("")
+        content: z.string().min(1).max(50000).default("")
     })
 )
 
