@@ -1,13 +1,6 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount } from "vue"
+import { computed } from "vue"
 import slugify from "slugify"
-
-// Tittap
-import { Editor, EditorContent } from "@tiptap/vue-3"
-import Document from "@tiptap/extension-document"
-import Paragraph from "@tiptap/extension-paragraph"
-import Text from "@tiptap/extension-text"
-import Heading from "@tiptap/extension-heading"
 
 // form
 import { useForm } from "vee-validate"
@@ -25,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
+import { Editor } from "@/components/editor"
 
 const formSchema = toTypedSchema(
     z.object({
@@ -45,21 +39,8 @@ const { handleSubmit, values, setFieldValue } = useForm({
 
 const slug = computed(() => slugify(values.title as string, { lower: true }))
 
-const editor = new Editor({
-    content: "",
-    extensions: [Document, Paragraph, Text, Heading],
-    onUpdate(props) {
-        const html = props.editor.getHTML()
-        setFieldValue("content", props.editor.getText().trim() ? html : "")
-    }
-})
-
 const handleFormSubmit = handleSubmit((values) => {
     console.log(values)
-})
-
-onBeforeUnmount(() => {
-    editor.destroy()
 })
 </script>
 
@@ -76,6 +57,7 @@ onBeforeUnmount(() => {
                 <FormMessage />
             </FormItem>
         </FormField>
+
         <!-- Title slug -->
         <FormField v-slot="{ componentField }" name="titleSlug">
             <FormItem>
@@ -87,6 +69,7 @@ onBeforeUnmount(() => {
                 <FormMessage />
             </FormItem>
         </FormField>
+
         <!-- snippet -->
         <FormField v-slot="{ componentField }" name="snippet">
             <FormItem v-auto-animate>
@@ -97,13 +80,21 @@ onBeforeUnmount(() => {
                 <FormMessage />
             </FormItem>
         </FormField>
-        <!-- content -->
 
+        <!-- content -->
         <FormField v-slot="{ componentField }" name="content">
             <FormItem v-auto-animate>
                 <FormLabel>Content</FormLabel>
                 <FormControl>
-                    <EditorContent :editor="editor" v-bind="componentField" />
+                    <Editor
+                        @update="
+                            (props) => {
+                                const html = props.editor.getHTML()
+                                setFieldValue('content', props.editor.getText().trim() ? html : '')
+                            }
+                        "
+                        @blur="componentField.onBlur"
+                    />
                 </FormControl>
                 <FormMessage />
             </FormItem>
