@@ -13,6 +13,7 @@ import Underline from "@tiptap/extension-underline"
 import Strike from "@tiptap/extension-strike"
 import Subscript from "@tiptap/extension-subscript"
 import Supercript from "@tiptap/extension-superscript"
+import Link from "@tiptap/extension-link"
 import Toolbar from "./toolbar.vue"
 
 const props = defineProps<{
@@ -36,7 +37,8 @@ const editor = new Editor({
         Underline,
         Strike,
         Subscript,
-        Supercript
+        Supercript,
+        Link
     ],
     onUpdate(props) {
         emits("update", props)

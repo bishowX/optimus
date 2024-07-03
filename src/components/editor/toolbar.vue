@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed, ref } from "vue"
 import type { Editor } from "@tiptap/vue-3"
-import { Bold, Italic, Underline, Strikethrough, ChevronDown } from "lucide-vue-next"
+import { Bold, Italic, Underline, Strikethrough, ChevronDown, Link } from "lucide-vue-next"
+import { useForm } from "vee-validate"
+import { toTypedSchema } from "@vee-validate/zod"
+import z from "zod"
 
 import {
     DropdownMenu,
@@ -14,6 +17,17 @@ import { Toggle } from "@/components/ui/toggle"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Input } from "@/components/ui/input"
+import {
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage
+} from "@/components/ui/form"
+import Switch from "@/components/ui/switch/Switch.vue"
 
 const props = defineProps<{
     editor: Editor
@@ -37,6 +51,48 @@ const handleHeadingLevelSelection = (level: string) => {
 const level = computed(() =>
     props.editor.isActive("paragraph") ? "0" : String(props.editor.getAttributes("heading").level)
 )
+
+const linkDialogOpen = ref(false)
+
+const linkFormSchema = toTypedSchema(
+    z.object({
+        url: z.string().url(),
+        displayText: z.string().optional(),
+        openInSameTab: z.boolean().default(false)
+    })
+)
+
+const linkForm = useForm({
+    initialValues: {
+        url: "",
+        displayText: "",
+        openInSameTab: false
+    },
+    validationSchema: linkFormSchema
+})
+
+const handleFormSubmit = linkForm.handleSubmit((values) => {
+    linkForm.resetForm()
+    linkDialogOpen.value = false
+
+    props.editor
+        .chain()
+        .focus()
+        .insertContent({
+            type: "text",
+            text: values.displayText || values.url,
+            marks: [
+                {
+                    type: "link",
+                    attrs: {
+                        href: values.url,
+                        target: values.openInSameTab ? "_self" : "_blank"
+                    }
+                }
+            ]
+        })
+        .run()
+})
 
 const levelToFontSizeClass = {
     "0": "text-base",
@@ -138,6 +194,72 @@ const textLevels = [
             >
                 <Strikethrough class="h-4 w-4" />
             </Toggle>
+        </div>
+        <Separator class="h-6" orientation="vertical" />
+        <div class="flex items-center gap-1">
+            <Popover v-model:open="linkDialogOpen">
+                <PopoverTrigger as-child>
+                    <Button
+                        type="button"
+                        size="icon"
+                        variant="ghost"
+                        @update:pressed="linkDialogOpen = true"
+                    >
+                        <Link class="w-4 h-4" /> </Button
+                ></PopoverTrigger>
+                <PopoverContent class="w-96">
+                    <form @submit="handleFormSubmit" class="flex flex-col gap-4">
+                        <FormField
+                            v-slot="{ componentField }"
+                            name="url"
+                            :validate-on-model-update="linkForm.submitCount.value > 0"
+                            :validate-on-blur="false"
+                        >
+                            <FormItem>
+                                <FormLabel>Url</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        v-bind="componentField"
+                                        placeholder="https://www.example.com"
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        </FormField>
+
+                        <FormField v-slot="{ componentField }" name="displayText">
+                            <FormItem>
+                                <FormLabel
+                                    >Display text
+                                    <span class="text-muted-foreground">(optional)</span></FormLabel
+                                >
+                                <FormControl>
+                                    <Input v-bind="componentField" placeholder="Example" />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        </FormField>
+
+                        <FormField v-slot="{ value, handleChange }" name="openInSameTab">
+                            <FormItem
+                                class="flex flex-row items-center justify-between rounded-lg border p-4"
+                            >
+                                <div class="space-y-0.5">
+                                    <FormLabel class="text-base"> Open in same tab </FormLabel>
+                                    <FormDescription>
+                                        Control whether links open in the same tab or a new tab.
+                                    </FormDescription>
+                                </div>
+                                <FormControl>
+                                    <Switch :checked="value" @update:checked="handleChange" />
+                                </FormControl>
+                            </FormItem>
+                        </FormField>
+                        <!-- For submitting form on Enter -->
+                        <input type="submit" hidden />
+                    </form>
+                </PopoverContent>
+            </Popover>
         </div>
     </div>
 </template>
