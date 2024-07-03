@@ -46,7 +46,7 @@ const editor = new Editor({
     },
     editorProps: {
         attributes: {
-            class: "w-full max-w-full prose dark:prose-invert prose-sm sm:prose sm:max-w-full lg:prose-lg focus:outline-none"
+            class: "w-full min-h-72 max-w-full prose dark:prose-invert prose-sm sm:prose sm:max-w-full lg:prose-lg focus:outline-none"
         }
     }
 })
