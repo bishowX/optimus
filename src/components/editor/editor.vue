@@ -40,7 +40,10 @@ const editor = new Editor({
         Strike,
         Subscript,
         Superscript,
-        Link.extend({ inclusive: false }).configure({ openOnClick: false }),
+        Link.extend({ inclusive: false }).configure({
+            openOnClick: false,
+            HTMLAttributes: { class: "cursor-pointer" }
+        }),
         TextAlign.configure({
             types: ["heading", "paragraph"]
         })
