@@ -1,7 +1,18 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue"
 import type { Editor } from "@tiptap/vue-3"
-import { Bold, Italic, Underline, Strikethrough, ChevronDown, Link } from "lucide-vue-next"
+import {
+    Bold,
+    Italic,
+    Underline,
+    Strikethrough,
+    ChevronDown,
+    Link,
+    AlignCenter,
+    AlignLeft,
+    AlignRight,
+    AlignJustify
+} from "lucide-vue-next"
 import { useForm } from "vee-validate"
 import { toTypedSchema } from "@vee-validate/zod"
 import z from "zod"
@@ -203,6 +214,37 @@ const textLevels = [
                 aria-label="Toggle strike"
             >
                 <Strikethrough class="h-4 w-4" />
+            </Toggle>
+        </div>
+        <Separator class="h-6" orientation="vertical" />
+        <div class="flex items-center gap-1">
+            <Toggle
+                :pressed="editor.isActive({ textAlign: 'left' })"
+                @update:pressed="editor.chain().focus().setTextAlign('left').run()"
+                aria-label="Text align left"
+            >
+                <AlignLeft class="h-4 w-4" />
+            </Toggle>
+            <Toggle
+                :pressed="editor.isActive({ textAlign: 'center' })"
+                @update:pressed="editor.chain().focus().setTextAlign('center').run()"
+                aria-label="Text align center"
+            >
+                <AlignCenter class="h-4 w-4" />
+            </Toggle>
+            <Toggle
+                :pressed="editor.isActive({ textAlign: 'justify' })"
+                @update:pressed="editor.chain().focus().setTextAlign('justify').run()"
+                aria-label="Text align justify"
+            >
+                <AlignJustify class="h-4 w-4" />
+            </Toggle>
+            <Toggle
+                :pressed="editor.isActive({ textAlign: 'right' })"
+                @update:pressed="editor.chain().focus().setTextAlign('right').run()"
+                aria-label="Text align right"
+            >
+                <AlignRight class="h-4 w-4" />
             </Toggle>
         </div>
         <Separator class="h-6" orientation="vertical" />

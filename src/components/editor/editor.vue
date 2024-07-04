@@ -14,6 +14,8 @@ import Strike from "@tiptap/extension-strike"
 import Subscript from "@tiptap/extension-subscript"
 import Superscript from "@tiptap/extension-superscript"
 import Link from "@tiptap/extension-link"
+import TextAlign from "@tiptap/extension-text-align"
+
 import Toolbar from "./toolbar.vue"
 
 const props = defineProps<{
@@ -38,7 +40,10 @@ const editor = new Editor({
         Strike,
         Subscript,
         Superscript,
-        Link.extend({ inclusive: false })
+        Link.extend({ inclusive: false }),
+        TextAlign.configure({
+            types: ["heading", "paragraph"]
+        })
     ],
     onUpdate(props) {
         emits("update", props)
