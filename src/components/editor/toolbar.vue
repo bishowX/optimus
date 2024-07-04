@@ -310,9 +310,9 @@ const textLevels = [
         <Separator class="h-6" orientation="vertical" />
         <div class="flex items-center gap-1">
             <Popover v-model:open="linkDialogOpen">
-                <PopoverTrigger as-child>
+                <PopoverTrigger>
                     <Tooltip>
-                        <TooltipTrigger>
+                        <TooltipTrigger as-child>
                             <Button
                                 type="button"
                                 size="icon"
