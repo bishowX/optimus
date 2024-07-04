@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount } from "vue"
 
-// Tittap
+// Tiptap
 import { Editor, EditorContent, type Content, type EditorEvents } from "@tiptap/vue-3"
 import Document from "@tiptap/extension-document"
 import Paragraph from "@tiptap/extension-paragraph"
@@ -12,7 +12,7 @@ import Italic from "@tiptap/extension-italic"
 import Underline from "@tiptap/extension-underline"
 import Strike from "@tiptap/extension-strike"
 import Subscript from "@tiptap/extension-subscript"
-import Supercript from "@tiptap/extension-superscript"
+import Superscript from "@tiptap/extension-superscript"
 import Link from "@tiptap/extension-link"
 import Toolbar from "./toolbar.vue"
 
@@ -37,7 +37,7 @@ const editor = new Editor({
         Underline,
         Strike,
         Subscript,
-        Supercript,
+        Superscript,
         Link.extend({ inclusive: false })
     ],
     onUpdate(props) {
