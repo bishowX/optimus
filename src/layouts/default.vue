@@ -70,47 +70,41 @@ const links: LinkProp[] = [
 
         <div class="flex">
             <!-- side bar -->
-            <TooltipProvider :delay-duration="0">
-                <ResizablePanelGroup
-                    id="resize-panel-group-1"
-                    direction="horizontal"
-                    class="h-full min-h-[calc(100vh-4.0625rem)] items-stretch"
+            <ResizablePanelGroup
+                id="resize-panel-group-1"
+                direction="horizontal"
+                class="h-full min-h-[calc(100vh-4.0625rem)] items-stretch"
+            >
+                <ResizablePanel
+                    ref="navPanelRef"
+                    id="resize-panel-1"
+                    :default-size="defaultLayout[0]"
+                    :collapsed-size="navCollapsedSize"
+                    collapsible
+                    :min-size="13"
+                    :max-size="20"
+                    class="transition-all duration-300 ease-in-out"
+                    :class="cn(isCollapsed && 'min-w-[50px]')"
+                    @expand="onExpand"
+                    @collapse="onCollapse"
                 >
-                    <ResizablePanel
-                        ref="navPanelRef"
-                        id="resize-panel-1"
-                        :default-size="defaultLayout[0]"
-                        :collapsed-size="navCollapsedSize"
-                        collapsible
-                        :min-size="13"
-                        :max-size="20"
-                        class="transition-all duration-300 ease-in-out"
-                        :class="cn(isCollapsed && 'min-w-[50px]')"
-                        @expand="onExpand"
-                        @collapse="onCollapse"
-                    >
-                        <SideNav :is-collapsed="isCollapsed" :links="links" />
-                    </ResizablePanel>
-                    <ResizableHandle
-                        id="resize-handle-1"
-                        with-handle
-                        @click="
-                            navPanelRef?.isCollapsed
-                                ? navPanelRef?.expand()
-                                : navPanelRef?.collapse()
-                        "
-                    />
+                    <SideNav :is-collapsed="isCollapsed" :links="links" />
+                </ResizablePanel>
+                <ResizableHandle
+                    id="resize-handle-1"
+                    with-handle
+                    @click="
+                        navPanelRef?.isCollapsed ? navPanelRef?.expand() : navPanelRef?.collapse()
+                    "
+                />
 
-                    <ResizablePanel id="resize-panel-3" :default-size="defaultLayout[1]">
-                        <!-- Content -->
-                        <div
-                            class="custom-scrollbar p-4 max-h-[calc(100vh-6.1rem)] overflow-y-auto"
-                        >
-                            <RouterView />
-                        </div>
-                    </ResizablePanel>
-                </ResizablePanelGroup>
-            </TooltipProvider>
+                <ResizablePanel id="resize-panel-3" :default-size="defaultLayout[1]">
+                    <!-- Content -->
+                    <div class="custom-scrollbar p-4 max-h-[calc(100vh-6.1rem)] overflow-y-auto">
+                        <RouterView />
+                    </div>
+                </ResizablePanel>
+            </ResizablePanelGroup>
         </div>
     </div>
 </template>

@@ -161,230 +161,224 @@ const textLevels = [
 
 <template>
     <div class="w-full flex items-center gap-2">
-        <TooltipProvider :delay-duration="0" :disable-closing-trigger="false">
-            <DropdownMenu>
-                <DropdownMenuTrigger as-child>
-                    <Button class="min-w-[133.93px]" variant="ghost"
-                        >{{ level === "0" ? "Normal text" : `Heading ${level}` }}
-                        <ChevronDown class="w-4 h-4 ml-2"
-                    /></Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                    <DropdownMenuRadioGroup
-                        :model-value="level"
-                        @update:model-value="handleHeadingLevelSelection"
+        <DropdownMenu>
+            <DropdownMenuTrigger as-child>
+                <Button class="min-w-[133.93px]" variant="ghost"
+                    >{{ level === "0" ? "Normal text" : `Heading ${level}` }}
+                    <ChevronDown class="w-4 h-4 ml-2"
+                /></Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+                <DropdownMenuRadioGroup
+                    :model-value="level"
+                    @update:model-value="handleHeadingLevelSelection"
+                >
+                    <DropdownMenuRadioItem
+                        v-for="textLevel in textLevels"
+                        :key="textLevel.level"
+                        :value="textLevel.level"
+                        class="justify-between gap-4"
+                        :class="levelToFontSizeClass[textLevel.level]"
+                        >{{ textLevel.label }}
+                        <Badge variant="outline" class="rounded-sm !text-[10px]"
+                            >Ctrl+Alt+{{ textLevel.level }}</Badge
+                        >
+                    </DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+        </DropdownMenu>
+        <Separator class="h-6" orientation="vertical" />
+        <div class="flex items-center gap-2">
+            <Tooltip>
+                <TooltipTrigger>
+                    <Toggle
+                        :pressed="editor.isActive('bold')"
+                        @update:pressed="editor.chain().toggleBold().focus().run()"
+                        aria-label="Toggle bold"
                     >
-                        <DropdownMenuRadioItem
-                            v-for="textLevel in textLevels"
-                            :key="textLevel.level"
-                            :value="textLevel.level"
-                            class="justify-between gap-4"
-                            :class="levelToFontSizeClass[textLevel.level]"
-                            >{{ textLevel.label }}
-                            <Badge variant="outline" class="rounded-sm !text-[10px]"
-                                >Ctrl+Alt+{{ textLevel.level }}</Badge
+                        <Bold class="h-4 w-4" />
+                    </Toggle>
+                </TooltipTrigger>
+                <TooltipContent> Toggle bold <Kbd class="ml-2">Ctrl + B</Kbd> </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+                <TooltipTrigger>
+                    <Toggle
+                        :pressed="editor.isActive('italic')"
+                        @update:pressed="editor.chain().toggleItalic().focus().run()"
+                        aria-label="Toggle italic"
+                    >
+                        <Italic class="h-4 w-4" />
+                    </Toggle>
+                </TooltipTrigger>
+                <TooltipContent :side-offset="10">
+                    Toggle italic <Kbd class="ml-2">Ctrl + I</Kbd>
+                </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+                <TooltipTrigger>
+                    <Toggle
+                        :pressed="editor.isActive('underline')"
+                        @update:pressed="editor.chain().toggleUnderline().focus().run()"
+                        aria-label="Toggle underline"
+                    >
+                        <Underline class="h-4 w-4" />
+                    </Toggle>
+                </TooltipTrigger>
+                <TooltipContent> Toggle underline <Kbd class="ml-2">Ctrl + U</Kbd> </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+                <TooltipTrigger>
+                    <Toggle
+                        :pressed="editor.isActive('strike')"
+                        @update:pressed="editor.chain().toggleStrike().focus().run()"
+                        aria-label="Toggle strike"
+                    >
+                        <Strikethrough class="h-4 w-4" />
+                    </Toggle>
+                </TooltipTrigger>
+                <TooltipContent>
+                    Toggle strike <Kbd class="ml-2">Ctrl + Shift + S</Kbd>
+                </TooltipContent>
+            </Tooltip>
+        </div>
+        <Separator class="h-6" orientation="vertical" />
+        <div class="flex items-center gap-1">
+            <Tooltip>
+                <TooltipTrigger>
+                    <Toggle
+                        :pressed="editor.isActive({ textAlign: 'left' })"
+                        @update:pressed="editor.chain().focus().setTextAlign('left').run()"
+                        aria-label="Text align left"
+                    >
+                        <AlignLeft class="h-4 w-4" />
+                    </Toggle>
+                </TooltipTrigger>
+                <TooltipContent>
+                    Text align left <Kbd class="ml-2">Ctrl + Shift + L</Kbd>
+                </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+                <TooltipTrigger>
+                    <Toggle
+                        :pressed="editor.isActive({ textAlign: 'center' })"
+                        @update:pressed="editor.chain().focus().setTextAlign('center').run()"
+                        aria-label="Text align center"
+                    >
+                        <AlignCenter class="h-4 w-4" />
+                    </Toggle>
+                </TooltipTrigger>
+                <TooltipContent>
+                    Text align center <Kbd class="ml-2">Ctrl + Shift + E</Kbd>
+                </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+                <TooltipTrigger>
+                    <Toggle
+                        :pressed="editor.isActive({ textAlign: 'justify' })"
+                        @update:pressed="editor.chain().focus().setTextAlign('justify').run()"
+                        aria-label="Text align justify"
+                    >
+                        <AlignJustify class="h-4 w-4" />
+                    </Toggle>
+                </TooltipTrigger>
+                <TooltipContent>
+                    Text align justify <Kbd class="ml-2">Ctrl + Shift + J</Kbd>
+                </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+                <TooltipTrigger>
+                    <Toggle
+                        :pressed="editor.isActive({ textAlign: 'right' })"
+                        @update:pressed="editor.chain().focus().setTextAlign('right').run()"
+                        aria-label="Text align right"
+                    >
+                        <AlignRight class="h-4 w-4" />
+                    </Toggle>
+                </TooltipTrigger>
+                <TooltipContent>
+                    Text align right <Kbd class="ml-2">Ctrl + Shift + R</Kbd>
+                </TooltipContent>
+            </Tooltip>
+        </div>
+        <Separator class="h-6" orientation="vertical" />
+        <div class="flex items-center gap-1">
+            <Popover v-model:open="linkDialogOpen">
+                <PopoverTrigger as-child>
+                    <Tooltip>
+                        <TooltipTrigger>
+                            <Button
+                                type="button"
+                                size="icon"
+                                variant="ghost"
+                                @update:pressed="linkDialogOpen = true"
                             >
-                        </DropdownMenuRadioItem>
-                    </DropdownMenuRadioGroup>
-                </DropdownMenuContent>
-            </DropdownMenu>
-            <Separator class="h-6" orientation="vertical" />
-            <div class="flex items-center gap-2">
-                <Tooltip>
-                    <TooltipTrigger>
-                        <Toggle
-                            :pressed="editor.isActive('bold')"
-                            @update:pressed="editor.chain().toggleBold().focus().run()"
-                            aria-label="Toggle bold"
+                                <Link class="w-4 h-4" />
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent> Create link </TooltipContent>
+                    </Tooltip>
+                </PopoverTrigger>
+                <PopoverContent class="w-96">
+                    <form @submit="handleFormSubmit" class="flex flex-col gap-4">
+                        <FormField
+                            v-slot="{ componentField }"
+                            name="url"
+                            :validate-on-model-update="linkForm.submitCount.value > 0"
+                            :validate-on-blur="false"
                         >
-                            <Bold class="h-4 w-4" />
-                        </Toggle>
-                    </TooltipTrigger>
-                    <TooltipContent> Toggle bold <Kbd class="ml-2">Ctrl + B</Kbd> </TooltipContent>
-                </Tooltip>
+                            <FormItem>
+                                <FormLabel>Url</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        :default-value="editor.getAttributes('link').href"
+                                        v-bind="componentField"
+                                        placeholder="https://www.example.com"
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        </FormField>
 
-                <Tooltip>
-                    <TooltipTrigger>
-                        <Toggle
-                            :pressed="editor.isActive('italic')"
-                            @update:pressed="editor.chain().toggleItalic().focus().run()"
-                            aria-label="Toggle italic"
-                        >
-                            <Italic class="h-4 w-4" />
-                        </Toggle>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                        Toggle italic <Kbd class="ml-2">Ctrl + I</Kbd>
-                    </TooltipContent>
-                </Tooltip>
-
-                <Tooltip>
-                    <TooltipTrigger>
-                        <Toggle
-                            :pressed="editor.isActive('underline')"
-                            @update:pressed="editor.chain().toggleUnderline().focus().run()"
-                            aria-label="Toggle underline"
-                        >
-                            <Underline class="h-4 w-4" />
-                        </Toggle>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                        Toggle underline <Kbd class="ml-2">Ctrl + U</Kbd>
-                    </TooltipContent>
-                </Tooltip>
-
-                <Tooltip>
-                    <TooltipTrigger>
-                        <Toggle
-                            :pressed="editor.isActive('strike')"
-                            @update:pressed="editor.chain().toggleStrike().focus().run()"
-                            aria-label="Toggle strike"
-                        >
-                            <Strikethrough class="h-4 w-4" />
-                        </Toggle>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                        Toggle strike <Kbd class="ml-2">Ctrl + Shift + S</Kbd>
-                    </TooltipContent>
-                </Tooltip>
-            </div>
-            <Separator class="h-6" orientation="vertical" />
-            <div class="flex items-center gap-1">
-                <Tooltip>
-                    <TooltipTrigger>
-                        <Toggle
-                            :pressed="editor.isActive({ textAlign: 'left' })"
-                            @update:pressed="editor.chain().focus().setTextAlign('left').run()"
-                            aria-label="Text align left"
-                        >
-                            <AlignLeft class="h-4 w-4" />
-                        </Toggle>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                        Text align left <Kbd class="ml-2">Ctrl + Shift + L</Kbd>
-                    </TooltipContent>
-                </Tooltip>
-
-                <Tooltip>
-                    <TooltipTrigger>
-                        <Toggle
-                            :pressed="editor.isActive({ textAlign: 'center' })"
-                            @update:pressed="editor.chain().focus().setTextAlign('center').run()"
-                            aria-label="Text align center"
-                        >
-                            <AlignCenter class="h-4 w-4" />
-                        </Toggle>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                        Text align center <Kbd class="ml-2">Ctrl + Shift + E</Kbd>
-                    </TooltipContent>
-                </Tooltip>
-
-                <Tooltip>
-                    <TooltipTrigger>
-                        <Toggle
-                            :pressed="editor.isActive({ textAlign: 'justify' })"
-                            @update:pressed="editor.chain().focus().setTextAlign('justify').run()"
-                            aria-label="Text align justify"
-                        >
-                            <AlignJustify class="h-4 w-4" />
-                        </Toggle>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                        Text align justify <Kbd class="ml-2">Ctrl + Shift + J</Kbd>
-                    </TooltipContent>
-                </Tooltip>
-
-                <Tooltip>
-                    <TooltipTrigger>
-                        <Toggle
-                            :pressed="editor.isActive({ textAlign: 'right' })"
-                            @update:pressed="editor.chain().focus().setTextAlign('right').run()"
-                            aria-label="Text align right"
-                        >
-                            <AlignRight class="h-4 w-4" />
-                        </Toggle>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                        Text align right <Kbd class="ml-2">Ctrl + Shift + R</Kbd>
-                    </TooltipContent>
-                </Tooltip>
-            </div>
-            <Separator class="h-6" orientation="vertical" />
-            <div class="flex items-center gap-1">
-                <Popover v-model:open="linkDialogOpen">
-                    <PopoverTrigger as-child>
-                        <Tooltip>
-                            <TooltipTrigger>
-                                <Button
-                                    type="button"
-                                    size="icon"
-                                    variant="ghost"
-                                    @update:pressed="linkDialogOpen = true"
+                        <FormField v-slot="{ componentField }" name="displayText">
+                            <FormItem>
+                                <FormLabel
+                                    >Display text
+                                    <span class="text-muted-foreground">(optional)</span></FormLabel
                                 >
-                                    <Link class="w-4 h-4" />
-                                </Button>
-                            </TooltipTrigger>
-                            <TooltipContent> Create link </TooltipContent>
-                        </Tooltip>
-                    </PopoverTrigger>
-                    <PopoverContent class="w-96">
-                        <form @submit="handleFormSubmit" class="flex flex-col gap-4">
-                            <FormField
-                                v-slot="{ componentField }"
-                                name="url"
-                                :validate-on-model-update="linkForm.submitCount.value > 0"
-                                :validate-on-blur="false"
+                                <FormControl>
+                                    <Input v-bind="componentField" placeholder="Example" />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        </FormField>
+
+                        <FormField v-slot="{ value, handleChange }" name="openInSameTab">
+                            <FormItem
+                                class="flex flex-row items-center justify-between rounded-lg border p-4"
                             >
-                                <FormItem>
-                                    <FormLabel>Url</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            :default-value="editor.getAttributes('link').href"
-                                            v-bind="componentField"
-                                            placeholder="https://www.example.com"
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            </FormField>
-
-                            <FormField v-slot="{ componentField }" name="displayText">
-                                <FormItem>
-                                    <FormLabel
-                                        >Display text
-                                        <span class="text-muted-foreground"
-                                            >(optional)</span
-                                        ></FormLabel
-                                    >
-                                    <FormControl>
-                                        <Input v-bind="componentField" placeholder="Example" />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            </FormField>
-
-                            <FormField v-slot="{ value, handleChange }" name="openInSameTab">
-                                <FormItem
-                                    class="flex flex-row items-center justify-between rounded-lg border p-4"
-                                >
-                                    <div class="space-y-0.5">
-                                        <FormLabel class="text-base"> Open in same tab </FormLabel>
-                                        <FormDescription>
-                                            Control whether links open in the same tab or a new tab.
-                                        </FormDescription>
-                                    </div>
-                                    <FormControl>
-                                        <Switch :checked="value" @update:checked="handleChange" />
-                                    </FormControl>
-                                </FormItem>
-                            </FormField>
-                            <!-- For submitting form on Enter -->
-                            <input type="submit" hidden />
-                        </form>
-                    </PopoverContent>
-                </Popover>
-            </div>
-        </TooltipProvider>
+                                <div class="space-y-0.5">
+                                    <FormLabel class="text-base"> Open in same tab </FormLabel>
+                                    <FormDescription>
+                                        Control whether links open in the same tab or a new tab.
+                                    </FormDescription>
+                                </div>
+                                <FormControl>
+                                    <Switch :checked="value" @update:checked="handleChange" />
+                                </FormControl>
+                            </FormItem>
+                        </FormField>
+                        <!-- For submitting form on Enter -->
+                        <input type="submit" hidden />
+                    </form>
+                </PopoverContent>
+            </Popover>
+        </div>
     </div>
 </template>
