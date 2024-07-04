@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 </script>
 
 <template>
-    <TooltipProvider :delay-duration="0">
+    <TooltipProvider disableHoverableContent :delay-duration="0">
         <DefaultLayout />
     </TooltipProvider>
 </template>
