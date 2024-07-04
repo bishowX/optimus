@@ -38,7 +38,7 @@ const editor = new Editor({
         Strike,
         Subscript,
         Supercript,
-        Link
+        Link.extend({ inclusive: false })
     ],
     onUpdate(props) {
         emits("update", props)

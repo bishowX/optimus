@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue"
+import { computed, ref, watch } from "vue"
 import type { Editor } from "@tiptap/vue-3"
 import { Bold, Italic, Underline, Strikethrough, ChevronDown, Link } from "lucide-vue-next"
 import { useForm } from "vee-validate"
@@ -69,6 +69,16 @@ const linkForm = useForm({
         openInSameTab: false
     },
     validationSchema: linkFormSchema
+})
+
+watch(linkDialogOpen, (n) => {
+    const selection = props.editor.state.selection
+    if (n) {
+        linkForm.setFieldValue(
+            "displayText",
+            props.editor.state.doc.textBetween(selection.$from.pos, selection.$to.pos, " ")
+        )
+    }
 })
 
 const handleFormSubmit = linkForm.handleSubmit((values) => {
@@ -219,6 +229,7 @@ const textLevels = [
                                 <FormLabel>Url</FormLabel>
                                 <FormControl>
                                     <Input
+                                        :default-value="editor.getAttributes('link').href"
                                         v-bind="componentField"
                                         placeholder="https://www.example.com"
                                     />
