@@ -30,7 +30,7 @@ defineProps<NavProps>()
         >
             <template v-for="(link, index) of links">
                 <Tooltip v-if="isCollapsed" :key="`1-${index}`" :delay-duration="0">
-                    <TooltipTrigger as-child>
+                    <TooltipTrigger>
                         <RouterLink
                             custom
                             :to="link.link"
