@@ -37,7 +37,16 @@ const editor = new Editor({
         Text,
         Heading,
         Bold,
-        Italic,
+        Italic.extend({
+            // For disabling Ctrl + Shift + I shortcut. Ctrl + i is sufficient
+            // and Ctrl + Shift + I interferes with browser's Devtools shortcut.
+            addKeyboardShortcuts() {
+                return {
+                    "Mod-Shift-i": () => false,
+                    "Mod-i": () => this.editor.commands.toggleItalic()
+                }
+            }
+        }),
         Underline,
         Strike,
         Subscript,
