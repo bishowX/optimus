@@ -2,8 +2,8 @@
 import { ref, watch } from "vue"
 import { BubbleMenu, type Editor } from "@tiptap/vue-3"
 import { useForm } from "vee-validate"
-import { toTypedSchema } from "@vee-validate/zod"
-import { z } from "zod"
+import { toTypedSchema } from "@vee-validate/valibot"
+import * as v from "valibot"
 import { Edit, Link, SquareArrowOutUpRight, Unlink } from "lucide-vue-next"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import {
@@ -25,10 +25,10 @@ const props = defineProps<{
 }>()
 
 const formSchema = toTypedSchema(
-    z.object({
-        url: z.string().url(),
-        displayText: z.string().optional(),
-        openInSameTab: z.boolean().default(false)
+    v.object({
+        url: v.pipe(v.string(), v.url("Invalid Url")),
+        displayText: v.optional(v.string()),
+        openInSameTab: v.optional(v.boolean())
     })
 )
 

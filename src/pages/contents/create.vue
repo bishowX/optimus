@@ -4,8 +4,8 @@ import slugify from "slugify"
 
 // form
 import { useForm } from "vee-validate"
-import { toTypedSchema } from "@vee-validate/zod"
-import * as z from "zod"
+import { toTypedSchema } from "@vee-validate/valibot"
+import * as v from "valibot"
 import {
     FormControl,
     FormDescription,
@@ -21,10 +21,14 @@ import { Button } from "@/components/ui/button"
 import { Editor } from "@/components/editor"
 
 const formSchema = toTypedSchema(
-    z.object({
-        title: z.string().min(2).max(100).default(""),
-        snippet: z.string().min(2).max(500).default(""),
-        content: z.string().min(1)
+    v.object({
+        title: v.pipe(v.string(), v.minLength(2, "Title cannot be less then 2 characters")),
+        snippet: v.pipe(
+            v.string(),
+            v.minLength(2, "Snippet cannot be less then 2 characters"),
+            v.maxLength(500)
+        ),
+        content: v.pipe(v.string(), v.minLength(1, "Content cannot be empty"))
     })
 )
 
