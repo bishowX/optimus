@@ -6,6 +6,7 @@ import vueJsx from "@vitejs/plugin-vue-jsx"
 import vueDevTools from "vite-plugin-vue-devtools"
 import VueRouter from "unplugin-vue-router/vite"
 import Layouts from "vite-plugin-vue-layouts"
+import { visualizer } from "rollup-plugin-visualizer"
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,7 +19,8 @@ export default defineConfig({
             defaultLayout: "default",
             layoutsDirs: "src/layouts",
             pagesDirs: "src/pages"
-        })
+        }),
+        visualizer()
     ],
     resolve: {
         alias: {
