@@ -487,33 +487,33 @@ const handleFormSubmit = linkForm.handleSubmit((values) => {
                         <TooltipContent> Add image </TooltipContent>
                     </Tooltip>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[500px]">
+                <DialogContent class="sm:max-w-[500px]">
                     <DialogHeader>
                         <DialogTitle>Upload Image</DialogTitle>
                         <DialogDescription>
                             Drag and drop an image or enter an image URL to upload.
                         </DialogDescription>
                     </DialogHeader>
-                    <div className="grid gap-4 py-4">
+                    <div class="grid gap-4 py-4">
                         <div
-                            className="group relative flex h-40 cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-muted transition-colors hover:border-primary"
+                            class="group relative flex h-40 cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-muted transition-colors hover:border-primary"
                         >
                             <div
-                                className="z-10 flex flex-col items-center justify-center space-y-2 text-center text-muted-foreground"
+                                class="z-10 flex flex-col items-center justify-center space-y-2 text-center text-muted-foreground"
                             >
-                                <CloudUploadIcon className="h-8 w-8" />
-                                <p className="text-sm font-medium">
+                                <CloudUploadIcon class="h-8 w-8" />
+                                <p class="text-sm font-medium">
                                     Drag and drop an image or
-                                    <span className="text-primary">browse</span>
+                                    <span class="text-primary">browse</span>
                                 </p>
                             </div>
                             <input
                                 type="file"
                                 accept="image/*"
-                                className="absolute z-10 inset-0 h-full w-full cursor-pointer opacity-0"
+                                class="absolute z-10 inset-0 h-full w-full cursor-pointer opacity-0"
                             />
                         </div>
-                        <div className="grid grid-cols-[1fr_auto] items-center gap-4">
+                        <div class="grid grid-cols-[1fr_auto] items-center gap-4">
                             <Input placeholder="Enter image URL" class="w-full" />
                             <Button>Upload</Button>
                         </div>
