@@ -168,6 +168,14 @@ const handleFormSubmit = linkForm.handleSubmit((values) => {
     linkForm.resetForm()
     linkDialogOpen.value = false
 
+    if (props.editor.getAttributes("link").href) {
+        props.editor
+            .chain()
+            .extendMarkRange("link")
+            .updateAttributes("link", { href: values.url })
+            .run()
+    }
+
     props.editor
         .chain()
         .focus()
