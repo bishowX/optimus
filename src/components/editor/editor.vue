@@ -15,6 +15,8 @@ import Subscript from "@tiptap/extension-subscript"
 import Superscript from "@tiptap/extension-superscript"
 import Link from "@tiptap/extension-link"
 import TextAlign from "@tiptap/extension-text-align"
+import DropCursor from "@tiptap/extension-dropcursor"
+import { Image } from "@/lib/tiptap/image"
 
 import Toolbar from "./toolbar.vue"
 
@@ -46,7 +48,9 @@ const editor = new Editor({
         }),
         TextAlign.configure({
             types: ["heading", "paragraph"]
-        })
+        }),
+        Image,
+        DropCursor
     ],
     onUpdate(props) {
         emits("update", props)

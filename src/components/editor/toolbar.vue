@@ -14,7 +14,9 @@ import {
     AlignJustify,
     Unlink,
     Edit,
-    SquareArrowOutUpRight
+    SquareArrowOutUpRight,
+    ImagePlus,
+    CloudUploadIcon
 } from "lucide-vue-next"
 import { useForm } from "vee-validate"
 import { toTypedSchema } from "@vee-validate/zod"
@@ -44,6 +46,14 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { Switch } from "@/components/ui/switch"
 import { Kbd } from "@/components/ui/kbd"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from "@/components/ui/dialog"
 
 const props = defineProps<{ editor: Editor }>()
 
@@ -466,6 +476,50 @@ const handleFormSubmit = linkForm.handleSubmit((values) => {
                     </form>
                 </PopoverContent>
             </Popover>
+            <Dialog>
+                <DialogTrigger>
+                    <Tooltip>
+                        <TooltipTrigger>
+                            <Button variant="ghost" size="icon">
+                                <ImagePlus class="w-4 h-4" />
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent> Add image </TooltipContent>
+                    </Tooltip>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[500px]">
+                    <DialogHeader>
+                        <DialogTitle>Upload Image</DialogTitle>
+                        <DialogDescription>
+                            Drag and drop an image or enter an image URL to upload.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                        <div
+                            className="group relative flex h-40 cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-muted transition-colors hover:border-primary"
+                        >
+                            <div
+                                className="z-10 flex flex-col items-center justify-center space-y-2 text-center text-muted-foreground"
+                            >
+                                <CloudUploadIcon className="h-8 w-8" />
+                                <p className="text-sm font-medium">
+                                    Drag and drop an image or
+                                    <span className="text-primary">browse</span>
+                                </p>
+                            </div>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                className="absolute z-10 inset-0 h-full w-full cursor-pointer opacity-0"
+                            />
+                        </div>
+                        <div className="grid grid-cols-[1fr_auto] items-center gap-4">
+                            <Input placeholder="Enter image URL" class="w-full" />
+                            <Button>Upload</Button>
+                        </div>
+                    </div>
+                </DialogContent>
+            </Dialog>
         </div>
     </div>
 </template>
