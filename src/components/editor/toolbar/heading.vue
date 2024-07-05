@@ -11,7 +11,7 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { Kbd } from "@/components/ui/kbd"
 
 const props = defineProps<{ editor: Editor }>()
 
@@ -97,9 +97,7 @@ const handleHeadingLevelSelection = (level: string) => {
                     class="justify-between gap-4"
                     :class="levelToFontSizeClass[textLevel.level]"
                     >{{ textLevel.label }}
-                    <Badge variant="outline" class="rounded-sm !text-[10px]"
-                        >Ctrl+Alt+{{ textLevel.level }}</Badge
-                    >
+                    <Kbd>Ctrl+Alt+{{ textLevel.level }}</Kbd>
                 </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
         </DropdownMenuContent>
