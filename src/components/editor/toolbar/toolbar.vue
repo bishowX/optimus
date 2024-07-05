@@ -226,7 +226,7 @@ const drop = (e: DragEvent) => {
                 <DialogTrigger>
                     <Tooltip>
                         <TooltipTrigger>
-                            <Button variant="ghost" size="icon">
+                            <Button type="button" variant="ghost" size="icon">
                                 <ImagePlus class="w-4 h-4" />
                             </Button>
                         </TooltipTrigger>
