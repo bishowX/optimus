@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from "vue"
 import type { Editor } from "@tiptap/vue-3"
 import {
     Bold,
@@ -12,6 +13,7 @@ import {
     ImagePlus,
     CloudUploadIcon
 } from "lucide-vue-next"
+import * as v from "valibot"
 
 import { Toggle } from "@/components/ui/toggle"
 import { Separator } from "@/components/ui/separator"
@@ -29,8 +31,30 @@ import {
 } from "@/components/ui/dialog"
 import Link from "./link.vue"
 import Heading from "./heading.vue"
+import { useForm } from "vee-validate"
+import { toTypedSchema } from "@vee-validate/valibot"
+import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 
-defineProps<{ editor: Editor }>()
+const props = defineProps<{ editor: Editor }>()
+
+const imgDialogOpen = ref(false)
+
+const imgForm = useForm({
+    validationSchema: toTypedSchema(
+        v.object({ url: v.pipe(v.string("Image url is required"), v.url("Invalid image url")) })
+    )
+})
+
+const handleImageFormSubmit = imgForm.handleSubmit((values) => {
+    imgDialogOpen.value = false
+    props.editor
+        .chain()
+        .focus()
+        .setImage({
+            src: values.url
+        })
+        .run()
+})
 </script>
 
 <template>
@@ -164,11 +188,11 @@ defineProps<{ editor: Editor }>()
         <div class="flex items-center gap-1">
             <Link :editor="editor" />
 
-            <Dialog>
+            <Dialog :open="imgDialogOpen">
                 <DialogTrigger>
                     <Tooltip>
                         <TooltipTrigger>
-                            <Button variant="ghost" size="icon">
+                            <Button @click="imgDialogOpen = true" variant="ghost" size="icon">
                                 <ImagePlus class="w-4 h-4" />
                             </Button>
                         </TooltipTrigger>
@@ -182,7 +206,7 @@ defineProps<{ editor: Editor }>()
                             Drag and drop an image or enter an image URL to upload.
                         </DialogDescription>
                     </DialogHeader>
-                    <div class="grid gap-4 py-4">
+                    <form @submit="handleImageFormSubmit" class="grid gap-4 py-4">
                         <div
                             class="group relative flex h-40 cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-muted transition-colors hover:border-primary"
                         >
@@ -201,11 +225,22 @@ defineProps<{ editor: Editor }>()
                                 class="absolute z-10 inset-0 h-full w-full cursor-pointer opacity-0"
                             />
                         </div>
-                        <div class="grid grid-cols-[1fr_auto] items-center gap-4">
-                            <Input placeholder="Enter image URL" class="w-full" />
+                        <div class="grid grid-cols-[1fr_auto] items-start gap-4">
+                            <FormField name="url" v-slot="{ componentField }">
+                                <FormItem v-auto-animate>
+                                    <FormControl>
+                                        <Input
+                                            v-bind="componentField"
+                                            placeholder="Enter image URL"
+                                            class="w-full"
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            </FormField>
                             <Button>Upload</Button>
                         </div>
-                    </div>
+                    </form>
                 </DialogContent>
             </Dialog>
         </div>
