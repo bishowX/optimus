@@ -1,5 +1,7 @@
 import TiptapImage from "@tiptap/extension-image"
+import { VueNodeViewRenderer } from "@tiptap/vue-3"
 import { Plugin } from "prosemirror-state"
+import ImageRenderer from "./image-renderer.vue"
 
 export const Image = TiptapImage.extend({
     addProseMirrorPlugins() {
@@ -85,5 +87,33 @@ export const Image = TiptapImage.extend({
                 }
             })
         ]
+    },
+    addAttributes() {
+        return {
+            ...this.parent?.(),
+            src: {
+                default: "",
+                renderHTML: ({ src }) => ({ src })
+            },
+            width: {
+                default: 300,
+                renderHTML: ({ width }) => ({ width })
+            },
+
+            height: {
+                default: 200,
+                renderHTML: ({ height }) => ({ height })
+            },
+
+            isDraggable: {
+                default: true,
+                renderHTML: (attributes) => {
+                    return {}
+                }
+            }
+        }
+    },
+    addNodeView() {
+        return VueNodeViewRenderer(ImageRenderer)
     }
 })
