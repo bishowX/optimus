@@ -188,11 +188,11 @@ const handleImageFormSubmit = imgForm.handleSubmit((values) => {
         <div class="flex items-center gap-1">
             <Link :editor="editor" />
 
-            <Dialog :open="imgDialogOpen">
+            <Dialog :open="imgDialogOpen" @update:open="(open) => (imgDialogOpen = open)">
                 <DialogTrigger>
                     <Tooltip>
                         <TooltipTrigger>
-                            <Button @click="imgDialogOpen = true" variant="ghost" size="icon">
+                            <Button variant="ghost" size="icon">
                                 <ImagePlus class="w-4 h-4" />
                             </Button>
                         </TooltipTrigger>
