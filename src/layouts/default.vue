@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, watch } from "vue"
 import { RouterLink, RouterView } from "vue-router"
 
 import type { LinkProp } from "@/components/layout/side-nav.vue"
@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils"
 import SideNav from "@/components/layout/side-nav.vue"
 import UserNav from "@/components/layout/user-nav.vue"
 import ThemeSwitcher from "@/components/layout/theme-switcher.vue"
+import { useMediaQuery } from "@vueuse/core"
 
 const defaultLayout = [15, 85]
 const navPanelRef = ref<InstanceType<typeof ResizablePanel>>()
@@ -22,6 +23,13 @@ function onCollapse() {
 function onExpand() {
     isCollapsed.value = false
 }
+
+const isSmallScreen = useMediaQuery("(max-width: 1199px)")
+
+watch(isSmallScreen, (n) => {
+    if (n) navPanelRef.value?.collapse()
+    else navPanelRef.value?.expand()
+})
 
 const links: LinkProp[] = [
     {
