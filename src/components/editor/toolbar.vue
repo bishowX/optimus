@@ -99,7 +99,7 @@ const textLevels = [
 ] as const
 
 const level = computed(() =>
-    props.editor.isActive("paragraph") ? "0" : String(props.editor.getAttributes("heading").level)
+    !props.editor.isActive("heading") ? "0" : String(props.editor.getAttributes("heading").level)
 )
 
 const handleHeadingLevelSelection = (level: string) => {
