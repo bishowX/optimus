@@ -50,12 +50,13 @@ watch(dialogOpen, (newDialogOpen) => {
 
     const { $from, $to } = state.selection
     const currentNode = state.doc.nodeAt($from.pos)
-    const isLinkMark = currentNode?.marks?.find((m) => m.type.name === "link")
+    const linkMark = currentNode?.marks?.find((m) => m.type.name === "link")
 
-    // if the cusror is on a link, set the `displayText` to that link's displayText
+    // if the cursor is on a link, set the `displayText` to that link's displayText
     // else set it to selected text
-    if (isLinkMark) {
+    if (linkMark) {
         form.setFieldValue("displayText", currentNode?.text || "")
+        form.setFieldValue("openInSameTab", linkMark.attrs.target === "_self")
     } else {
         form.setFieldValue("displayText", state.doc.textBetween($from.pos, $to.pos, " "))
     }
