@@ -45,6 +45,16 @@ const imgForm = useForm({
     )
 })
 
+const handleFileChange = (e: Event) => {
+    const target = e.target as HTMLInputElement
+    const file = target.files?.[0]
+    if (!file) return
+
+    const fileSize = file.size * 1024 * 1024 // In MB
+
+    imgForm.setFieldValue("url", URL.createObjectURL(file) || "")
+}
+
 const handleImageFormSubmit = imgForm.handleSubmit((values) => {
     imgDialogOpen.value = false
     props.editor
@@ -55,6 +65,30 @@ const handleImageFormSubmit = imgForm.handleSubmit((values) => {
         })
         .run()
 })
+
+const dragenter = (e: DragEvent) => {
+    e.stopPropagation()
+    e.preventDefault()
+}
+
+const dragover = (e: DragEvent) => {
+    e.stopPropagation()
+    e.preventDefault()
+}
+
+const drop = (e: DragEvent) => {
+    e.stopPropagation()
+    e.preventDefault()
+
+    const file = e.dataTransfer?.files?.[0]
+
+    // only few image format don't have mime type starting with 'image/', see: https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types#image_file_type_details
+    if (!file || !file.type || !file.type.startsWith("image/")) return
+
+    const fileSize = file.size * 1024 * 1024 // In MB
+
+    imgForm.setFieldValue("url", URL.createObjectURL(file) || "")
+}
 </script>
 
 <template>
@@ -208,9 +242,19 @@ const handleImageFormSubmit = imgForm.handleSubmit((values) => {
                     </DialogHeader>
                     <form @submit="handleImageFormSubmit" class="grid gap-4 py-4">
                         <div
-                            class="group relative flex h-40 cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-muted transition-colors hover:border-primary"
+                            @dragenter="dragenter"
+                            @dragover="dragover"
+                            @drop="drop"
+                            class="group relative flex h-64 cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-muted transition-colors hover:border-primary"
                         >
+                            <img
+                                class="h-full rounded-md"
+                                v-if="imgForm.values.url"
+                                :src="imgForm.values.url"
+                                alt=""
+                            />
                             <div
+                                v-else
                                 class="z-10 flex flex-col items-center justify-center space-y-2 text-center text-muted-foreground"
                             >
                                 <CloudUploadIcon class="h-8 w-8" />
@@ -223,6 +267,7 @@ const handleImageFormSubmit = imgForm.handleSubmit((values) => {
                                 type="file"
                                 accept="image/*"
                                 class="absolute z-10 inset-0 h-full w-full cursor-pointer opacity-0"
+                                @change="handleFileChange"
                             />
                         </div>
                         <div class="grid grid-cols-[1fr_auto] items-start gap-4">
