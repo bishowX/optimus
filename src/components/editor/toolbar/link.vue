@@ -24,7 +24,7 @@ const props = defineProps<{
     editor: Editor
 }>()
 
-const linkFormSchema = toTypedSchema(
+const formSchema = toTypedSchema(
     z.object({
         url: z.string().url(),
         displayText: z.string().optional(),
@@ -32,43 +32,44 @@ const linkFormSchema = toTypedSchema(
     })
 )
 
-const linkForm = useForm({
+const form = useForm({
     initialValues: {
         url: "",
         displayText: "",
         openInSameTab: false
     },
-    validationSchema: linkFormSchema
+    validationSchema: formSchema
 })
 
-const linkDialogOpen = ref(false)
+const dialogOpen = ref(false)
 
-watch(linkDialogOpen, (newLinkDialogOpen) => {
-    if (!newLinkDialogOpen) return
+watch(dialogOpen, (newDialogOpen) => {
+    if (!newDialogOpen) return
 
-    const { $from, $to } = props.editor.state.selection
-    const currentNode = props.editor.state.doc.nodeAt($from.pos)
+    const state = props.editor.state
+
+    const { $from, $to } = state.selection
+    const currentNode = state.doc.nodeAt($from.pos)
     const isLinkMark = currentNode?.marks?.find((m) => m.type.name === "link")
 
+    // if the cusror is on a link, set the `displayText` to that link's displayText
+    // else set it to selected text
     if (isLinkMark) {
-        linkForm.setFieldValue("displayText", currentNode?.text || "")
+        form.setFieldValue("displayText", currentNode?.text || "")
     } else {
-        linkForm.setFieldValue(
-            "displayText",
-            props.editor.state.doc.textBetween($from.pos, $to.pos, " ")
-        )
+        form.setFieldValue("displayText", state.doc.textBetween($from.pos, $to.pos, " "))
     }
 
-    linkForm.setFieldValue("url", props.editor.getAttributes("link").href || "")
+    form.setFieldValue("url", props.editor.getAttributes("link").href || "")
 })
 
 const openLink = () => {
     window.open(props.editor.getAttributes("link").href, "_blank")
 }
 
-const handleFormSubmit = linkForm.handleSubmit((values) => {
-    linkForm.resetForm()
-    linkDialogOpen.value = false
+const handleFormSubmit = form.handleSubmit((values) => {
+    form.resetForm()
+    dialogOpen.value = false
 
     if (props.editor.getAttributes("link").href) {
         props.editor
@@ -83,7 +84,7 @@ const handleFormSubmit = linkForm.handleSubmit((values) => {
         .focus()
         .insertContent({
             type: "text",
-            text: values.displayText || values.url,
+            text: values.displayText || values.url, //use url as displayText it not provided by the user
             marks: [
                 {
                     type: "link",
@@ -114,10 +115,7 @@ const shouldShowLinkToolbar: InstanceType<typeof BubbleMenu>["$props"]["shouldSh
 </script>
 
 <template>
-    <BubbleMenu
-        :should-show="linkDialogOpen ? () => false : shouldShowLinkToolbar"
-        :editor="editor"
-    >
+    <BubbleMenu :should-show="dialogOpen ? () => false : shouldShowLinkToolbar" :editor="editor">
         <div class="flex gap-x-1 items-center rounded-md border bg-background p-1">
             <Tooltip>
                 <TooltipTrigger>
@@ -130,17 +128,13 @@ const shouldShowLinkToolbar: InstanceType<typeof BubbleMenu>["$props"]["shouldSh
                 </TooltipTrigger>
                 <TooltipContent> Remove link </TooltipContent>
             </Tooltip>
+
             <Tooltip>
                 <TooltipTrigger>
                     <Button
                         variant="ghost"
                         size="icon"
-                        @click="
-                            (e) => {
-                                e.preventDefault()
-                                linkDialogOpen = true
-                            }
-                        "
+                        @click="dialogOpen = true"
                         aria-label="Edit link"
                         type="button"
                     >
@@ -149,6 +143,7 @@ const shouldShowLinkToolbar: InstanceType<typeof BubbleMenu>["$props"]["shouldSh
                 </TooltipTrigger>
                 <TooltipContent> Edit link </TooltipContent>
             </Tooltip>
+
             <Tooltip>
                 <TooltipTrigger>
                     <Button
@@ -164,7 +159,7 @@ const shouldShowLinkToolbar: InstanceType<typeof BubbleMenu>["$props"]["shouldSh
             </Tooltip>
         </div>
     </BubbleMenu>
-    <Popover v-model:open="linkDialogOpen">
+    <Popover v-model:open="dialogOpen">
         <PopoverTrigger :disabled="editor.isActive('link')">
             <Tooltip>
                 <TooltipTrigger as-child>
@@ -172,7 +167,7 @@ const shouldShowLinkToolbar: InstanceType<typeof BubbleMenu>["$props"]["shouldSh
                         type="button"
                         size="icon"
                         variant="ghost"
-                        @update:pressed="linkDialogOpen = true"
+                        @update:pressed="dialogOpen = true"
                         :disabled="editor.isActive('link')"
                     >
                         <Link class="w-4 h-4" />
@@ -186,7 +181,7 @@ const shouldShowLinkToolbar: InstanceType<typeof BubbleMenu>["$props"]["shouldSh
                 <FormField
                     v-slot="{ componentField }"
                     name="url"
-                    :validate-on-model-update="linkForm.submitCount.value > 0"
+                    :validate-on-model-update="form.submitCount.value > 0"
                     :validate-on-blur="false"
                 >
                     <FormItem>

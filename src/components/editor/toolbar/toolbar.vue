@@ -94,7 +94,9 @@ defineProps<{ editor: Editor }>()
                 </TooltipContent>
             </Tooltip>
         </div>
+
         <Separator class="h-6" orientation="vertical" />
+
         <div class="flex items-center gap-1">
             <Tooltip>
                 <TooltipTrigger>
@@ -156,9 +158,12 @@ defineProps<{ editor: Editor }>()
                 </TooltipContent>
             </Tooltip>
         </div>
+
         <Separator class="h-6" orientation="vertical" />
+
         <div class="flex items-center gap-1">
             <Link :editor="editor" />
+
             <Dialog>
                 <DialogTrigger>
                     <Tooltip>

@@ -17,6 +17,7 @@ import Link from "@tiptap/extension-link"
 import TextAlign from "@tiptap/extension-text-align"
 import DropCursor from "@tiptap/extension-dropcursor"
 import { Image } from "@/lib/tiptap/image"
+
 import { Toolbar } from "@/components/editor/toolbar"
 
 const props = defineProps<{
@@ -73,6 +74,7 @@ onBeforeUnmount(() => {
         class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background outline-none placeholder:text-muted-foreground focus-within:outline-none focus-within:ring-1 focus-within:ring-ring focus-within:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
     >
         <Toolbar :editor="editor" />
+        <!-- For space between toolbar and editor -->
         <div class="h-2"></div>
         <EditorContent :editor="editor" />
     </div>
