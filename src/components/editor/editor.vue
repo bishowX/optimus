@@ -17,8 +17,7 @@ import Link from "@tiptap/extension-link"
 import TextAlign from "@tiptap/extension-text-align"
 import DropCursor from "@tiptap/extension-dropcursor"
 import { Image } from "@/lib/tiptap/image"
-
-import Toolbar from "./toolbar.vue"
+import { Toolbar } from "@/components/editor/toolbar"
 
 const props = defineProps<{
     content?: Content
