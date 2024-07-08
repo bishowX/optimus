@@ -137,7 +137,6 @@ const shouldShowLinkToolbar: InstanceType<typeof BubbleMenu>["$props"]["shouldSh
                         size="icon"
                         @click="dialogOpen = true"
                         aria-label="Edit link"
-                        type="button"
                     >
                         <Edit class="h-4 w-4" />
                     </Button>
@@ -165,7 +164,6 @@ const shouldShowLinkToolbar: InstanceType<typeof BubbleMenu>["$props"]["shouldSh
             <Tooltip>
                 <TooltipTrigger as-child>
                     <Button
-                        type="button"
                         size="icon"
                         variant="ghost"
                         @update:pressed="dialogOpen = true"
