@@ -16,9 +16,9 @@ import { Separator } from "@/components/ui/separator"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { Kbd } from "@/components/ui/kbd"
 
-import Link from "./link.vue"
-import Heading from "./heading.vue"
-import Image from "./image.vue"
+import Link from "@/components/editor/toolbar/link.vue"
+import Heading from "@/components/editor/toolbar/heading.vue"
+import Image from "@/components/editor/toolbar/image.vue"
 
 defineProps<{ editor: Editor }>()
 </script>
