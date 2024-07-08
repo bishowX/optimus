@@ -1,0 +1,21 @@
+<script setup lang="ts">
+import type { Content } from "@/data/content"
+import { useStorage } from "@vueuse/core"
+import { useRoute } from "vue-router/auto"
+
+const route = useRoute()
+const slug = route.params.slug
+const contents = useStorage<Content[]>("contents", [])
+
+const content = contents.value.find((c) => c.slug === slug)
+
+console.log("content: ", content)
+</script>
+
+<template>
+    <div v-if="content" class="prose dark:prose-invert prose-sm sm:prose sm:max-w-full lg:prose-md">
+        <h1>{{ content.title }}</h1>
+        <p>{{ content.snippet }}</p>
+        <div v-html="content.content"></div>
+    </div>
+</template>

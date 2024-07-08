@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Editor } from "@/components/editor"
+import { useStorage } from "@vueuse/core"
+import { useRouter } from "vue-router"
 
 const formSchema = toTypedSchema(
     v.object({
@@ -26,7 +28,7 @@ const formSchema = toTypedSchema(
         snippet: v.pipe(
             v.string(),
             v.minLength(2, "Snippet cannot be less then 2 characters"),
-            v.maxLength(500)
+            v.maxLength(2000)
         ),
         content: v.pipe(v.string(), v.minLength(1, "Content cannot be empty"))
     })
@@ -43,8 +45,13 @@ const { handleSubmit, values, setFieldValue } = useForm({
 
 const slug = computed(() => slugify(values.title as string, { lower: true }))
 
+const contents = useStorage<typeof values & { slug: string }[]>("contents", [])
+
+const router = useRouter()
+
 const handleFormSubmit = handleSubmit((values) => {
-    console.log(values)
+    contents.value.push({ ...values, slug: slug.value })
+    router.push("/contents")
 })
 </script>
 
