@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { LineChart } from "@/components/ui/chart-line"
+import { NodeViewWrapper } from "@tiptap/vue-3"
 
 const data = [
     {
@@ -266,17 +267,19 @@ const data = [
 </script>
 
 <template>
-    <LineChart
-        :data="data"
-        index="year"
-        show-tooltip
-        :categories="['Export Growth Rate', 'Import Growth Rate']"
-        :y-formatter="
-            (tick, i) => {
-                return typeof tick === 'number'
-                    ? `$ ${new Intl.NumberFormat('us').format(tick).toString()}`
-                    : ''
-            }
-        "
-    />
+    <NodeViewWrapper>
+        <LineChart
+            :data="data"
+            index="year"
+            show-tooltip
+            :categories="['Export Growth Rate', 'Import Growth Rate']"
+            :y-formatter="
+                (tick, i) => {
+                    return typeof tick === 'number'
+                        ? `$ ${new Intl.NumberFormat('us').format(tick).toString()}`
+                        : ''
+                }
+            "
+        />
+    </NodeViewWrapper>
 </template>

@@ -17,6 +17,7 @@ import Link from "@tiptap/extension-link"
 import TextAlign from "@tiptap/extension-text-align"
 import DropCursor from "@tiptap/extension-dropcursor"
 import { Image } from "@/lib/tiptap/image"
+import { InteractiveComp } from "@/lib/tiptap/interactive"
 
 import { Toolbar } from "@/components/editor/toolbar"
 
@@ -59,7 +60,8 @@ const editor = new Editor({
             types: ["heading", "paragraph"]
         }),
         Image,
-        DropCursor
+        DropCursor,
+        InteractiveComp
     ],
     onUpdate(props) {
         emits("update", props)
