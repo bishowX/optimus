@@ -3,8 +3,8 @@ import { VueNodeViewRenderer } from '@tiptap/vue-3'
 
 import Component from './component.vue'
 
-export const InteractiveComp = Node.create({
-  name: 'Button',
+export const LineChart = Node.create({
+  name: 'LineChart',
 
   group: 'block',
 
@@ -12,8 +12,8 @@ export const InteractiveComp = Node.create({
 
   addAttributes() {
     return {
-      count: {
-        default: 0,
+      data: {
+        default: [],
       },
     }
   },
@@ -21,13 +21,13 @@ export const InteractiveComp = Node.create({
   parseHTML() {
     return [
       {
-        tag: 'vue-component',
+        tag: 'line-chart',
       },
     ]
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ['vue-component', mergeAttributes(HTMLAttributes)]
+    return ['line-chart', mergeAttributes({...HTMLAttributes, data: JSON.stringify(HTMLAttributes.data, undefined, 2)})]
   },
 
   addNodeView() {

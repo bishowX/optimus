@@ -17,7 +17,7 @@ import Link from "@tiptap/extension-link"
 import TextAlign from "@tiptap/extension-text-align"
 import DropCursor from "@tiptap/extension-dropcursor"
 import { Image } from "@/lib/tiptap/image"
-import { InteractiveComp } from "@/lib/tiptap/interactive"
+import { LineChart } from "@/lib/tiptap/line-chart"
 
 import { Toolbar } from "@/components/editor/toolbar"
 
@@ -61,7 +61,7 @@ const editor = new Editor({
         }),
         Image,
         DropCursor,
-        InteractiveComp
+        LineChart
     ],
     onUpdate(props) {
         emits("update", props)

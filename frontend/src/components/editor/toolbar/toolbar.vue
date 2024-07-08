@@ -8,9 +8,11 @@ import {
     AlignCenter,
     AlignLeft,
     AlignRight,
-    AlignJustify
+    AlignJustify,
+    LineChart
 } from "lucide-vue-next"
 
+import { Button } from "@/components/ui/button"
 import { Toggle } from "@/components/ui/toggle"
 import { Separator } from "@/components/ui/separator"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
@@ -19,8 +21,21 @@ import { Kbd } from "@/components/ui/kbd"
 import Link from "@/components/editor/toolbar/link.vue"
 import Heading from "@/components/editor/toolbar/heading.vue"
 import Image from "@/components/editor/toolbar/image.vue"
+import { generateRandomGrowthData } from "@/data/line-chart"
 
-defineProps<{ editor: Editor }>()
+const props = defineProps<{ editor: Editor }>()
+
+const makeChart = () => {
+    props.editor
+        .chain()
+        .insertContent({
+            type: "LineChart",
+            attrs: {
+                data: generateRandomGrowthData(2000, 24)
+            }
+        })
+        .run()
+}
 </script>
 
 <template>
@@ -154,6 +169,19 @@ defineProps<{ editor: Editor }>()
         <div class="flex items-center gap-1">
             <Link :editor="editor" />
             <Image :editor="editor" />
+        </div>
+
+        <Separator class="h-6" orientation="vertical" />
+
+        <div class="flex items-center gap-1">
+            <Tooltip>
+                <TooltipTrigger>
+                    <Button @click="makeChart" variant="ghost" size="icon">
+                        <LineChart class="w-4 h-4" />
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent> Add line chart <Kbd>Ctrl + Alt + L</Kbd> </TooltipContent>
+            </Tooltip>
         </div>
     </div>
 </template>
