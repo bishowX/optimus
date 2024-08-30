@@ -132,7 +132,7 @@ const drop = (e: DragEvent) => {
                             <FormMessage />
                         </FormItem>
                     </FormField>
-                    <Button>Upload</Button>
+                    <Button type="submit">Upload</Button>
                 </div>
             </form>
         </DialogContent>
