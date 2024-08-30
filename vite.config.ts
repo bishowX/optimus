@@ -18,21 +18,21 @@ export default defineConfig({
         Layouts({
             defaultLayout: "default",
             layoutsDirs: "src/layouts",
-            pagesDirs: "src/pages"
+            pagesDirs: "src/pages",
         }),
-        visualizer()
+        visualizer(),
     ],
     resolve: {
         alias: {
-            "@": fileURLToPath(new URL("./src", import.meta.url))
-        }
+            "@": fileURLToPath(new URL("./src", import.meta.url)),
+        },
     },
     server: {
         proxy: {
             "/api": {
                 target: "http://127.0.0.1:3000",
-                changeOrigin: true
-            }
-        }
-    }
+                changeOrigin: true,
+            },
+        },
+    },
 })
