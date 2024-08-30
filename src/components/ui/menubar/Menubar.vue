@@ -4,7 +4,7 @@ import {
     MenubarRoot,
     type MenubarRootEmits,
     type MenubarRootProps,
-    useForwardPropsEmits
+    useForwardPropsEmits,
 } from "radix-vue"
 import { cn } from "@/lib/utils"
 

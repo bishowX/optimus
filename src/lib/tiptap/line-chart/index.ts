@@ -1,36 +1,42 @@
-import { mergeAttributes, Node } from '@tiptap/core'
-import { VueNodeViewRenderer } from '@tiptap/vue-3'
+import { mergeAttributes, Node } from "@tiptap/core"
+import { VueNodeViewRenderer } from "@tiptap/vue-3"
 
-import Component from './component.vue'
+import Component from "./component.vue"
 
 export const LineChart = Node.create({
-  name: 'LineChart',
+    name: "LineChart",
 
-  group: 'block',
+    group: "block",
 
-  atom: true,
+    atom: true,
 
-  addAttributes() {
-    return {
-      data: {
-        default: [],
-      },
-    }
-  },
+    addAttributes() {
+        return {
+            data: {
+                default: [],
+            },
+        }
+    },
 
-  parseHTML() {
-    return [
-      {
-        tag: 'line-chart',
-      },
-    ]
-  },
+    parseHTML() {
+        return [
+            {
+                tag: "line-chart",
+            },
+        ]
+    },
 
-  renderHTML({ HTMLAttributes }) {
-    return ['line-chart', mergeAttributes({...HTMLAttributes, data: JSON.stringify(HTMLAttributes.data, undefined, 2)})]
-  },
+    renderHTML({ HTMLAttributes }) {
+        return [
+            "line-chart",
+            mergeAttributes({
+                ...HTMLAttributes,
+                data: JSON.stringify(HTMLAttributes.data, undefined, 2),
+            }),
+        ]
+    },
 
-  addNodeView() {
-    return VueNodeViewRenderer(Component)
-  },
+    addNodeView() {
+        return VueNodeViewRenderer(Component)
+    },
 })

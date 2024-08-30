@@ -35,13 +35,13 @@ const links: LinkProp[] = [
     {
         title: "Contents",
         icon: "lucide:file-search-2",
-        link: "/contents"
+        link: "/contents",
     },
     {
         title: "Create Content",
         icon: "lucide:file-plus",
-        link: "/contents/create"
-    }
+        link: "/contents/create",
+    },
 ]
 </script>
 

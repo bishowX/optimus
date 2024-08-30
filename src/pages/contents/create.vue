@@ -12,7 +12,7 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage
+    FormMessage,
 } from "@/components/ui/form"
 
 import { Input } from "@/components/ui/input"
@@ -28,10 +28,10 @@ const formSchema = toTypedSchema(
         snippet: v.pipe(
             v.string(),
             v.minLength(2, "Snippet cannot be less then 2 characters"),
-            v.maxLength(2000)
+            v.maxLength(2000),
         ),
-        content: v.pipe(v.string(), v.minLength(1, "Content cannot be empty"))
-    })
+        content: v.pipe(v.string(), v.minLength(1, "Content cannot be empty")),
+    }),
 )
 
 const { handleSubmit, values, setFieldValue } = useForm({
@@ -39,8 +39,8 @@ const { handleSubmit, values, setFieldValue } = useForm({
     initialValues: {
         content: "",
         snippet: "",
-        title: ""
-    }
+        title: "",
+    },
 })
 
 const slug = computed(() => slugify(values.title as string, { lower: true }))

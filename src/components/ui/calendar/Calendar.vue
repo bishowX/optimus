@@ -4,7 +4,7 @@ import {
     CalendarRoot,
     type CalendarRootEmits,
     type CalendarRootProps,
-    useForwardPropsEmits
+    useForwardPropsEmits,
 } from "radix-vue"
 import {
     CalendarCell,
@@ -17,7 +17,7 @@ import {
     CalendarHeader,
     CalendarHeading,
     CalendarNextButton,
-    CalendarPrevButton
+    CalendarPrevButton,
 } from "."
 import { cn } from "@/lib/utils"
 

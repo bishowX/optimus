@@ -16,7 +16,7 @@ export const Image = TiptapImage.extend({
                         if (moved || !filesCount) return
 
                         const images = Array.from(event.dataTransfer.files).filter((file) =>
-                            /image/i.test(file.type)
+                            /image/i.test(file.type),
                         )
 
                         if (images.length === 0) {
@@ -28,7 +28,7 @@ export const Image = TiptapImage.extend({
                         const { schema } = view.state
                         const coordinates = view.posAtCoords({
                             left: event.clientX,
-                            top: event.clientY
+                            top: event.clientY,
                         })
 
                         if (!coordinates) return
@@ -38,7 +38,7 @@ export const Image = TiptapImage.extend({
 
                             reader.onload = (readerEvent) => {
                                 const node = schema.nodes.image.create({
-                                    src: readerEvent.target?.result
+                                    src: readerEvent.target?.result,
                                 })
 
                                 const transaction = view.state.tr.insert(coordinates.pos, node)
@@ -59,7 +59,7 @@ export const Image = TiptapImage.extend({
                             }
 
                             const images = Array.from(event.clipboardData.files).filter((file) =>
-                                /image/i.test(file.type)
+                                /image/i.test(file.type),
                             )
 
                             if (images.length === 0) {
@@ -75,17 +75,17 @@ export const Image = TiptapImage.extend({
 
                                 reader.onload = (readerEvent) => {
                                     const node = schema.nodes.image.create({
-                                        src: readerEvent.target?.result
+                                        src: readerEvent.target?.result,
                                     })
                                     const transaction = view.state.tr.replaceSelectionWith(node)
                                     view.dispatch(transaction)
                                 }
                                 reader.readAsDataURL(image)
                             })
-                        }
-                    }
-                }
-            })
+                        },
+                    },
+                },
+            }),
         ]
     },
     addAttributes() {
@@ -93,27 +93,27 @@ export const Image = TiptapImage.extend({
             ...this.parent?.(),
             src: {
                 default: "",
-                renderHTML: ({ src }) => ({ src })
+                renderHTML: ({ src }) => ({ src }),
             },
             width: {
                 default: 300,
-                renderHTML: ({ width }) => ({ width })
+                renderHTML: ({ width }) => ({ width }),
             },
 
             height: {
                 default: 200,
-                renderHTML: ({ height }) => ({ height })
+                renderHTML: ({ height }) => ({ height }),
             },
 
             isDraggable: {
                 default: true,
                 renderHTML: (attributes) => {
                     return {}
-                }
-            }
+                },
+            },
         }
     },
     addNodeView() {
         return VueNodeViewRenderer(ImageRenderer)
-    }
+    },
 })

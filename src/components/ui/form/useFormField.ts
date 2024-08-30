@@ -3,7 +3,7 @@ import {
     useFieldError,
     useIsFieldDirty,
     useIsFieldTouched,
-    useIsFieldValid
+    useIsFieldValid,
 } from "vee-validate"
 import { inject } from "vue"
 import { FORM_ITEM_INJECTION_KEY } from "./injectionKeys"
@@ -16,7 +16,7 @@ export function useFormField() {
         valid: useIsFieldValid(),
         isDirty: useIsFieldDirty(),
         isTouched: useIsFieldTouched(),
-        error: useFieldError()
+        error: useFieldError(),
     }
 
     if (!fieldContext) throw new Error("useFormField should be used within <FormField>")
@@ -30,6 +30,6 @@ export function useFormField() {
         formItemId: `${id}-form-item`,
         formDescriptionId: `${id}-form-item-description`,
         formMessageId: `${id}-form-item-message`,
-        ...fieldState
+        ...fieldState,
     }
 }

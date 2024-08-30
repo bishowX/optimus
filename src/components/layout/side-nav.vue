@@ -47,7 +47,7 @@ defineProps<NavProps>()
                                             ? buttonVariants({ variant: 'default', size: 'icon' })
                                             : buttonVariants({ variant: 'ghost', size: 'icon' }),
                                         isActive &&
-                                            'dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white'
+                                            'dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white',
                                     )
                                 "
                             >
@@ -82,7 +82,7 @@ defineProps<NavProps>()
                                     : buttonVariants({ variant: 'ghost', size: 'sm' }),
                                 'justify-start',
                                 isActive &&
-                                    'dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white'
+                                    'dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white',
                             )
                         "
                     >

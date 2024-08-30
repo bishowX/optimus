@@ -12,7 +12,7 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage
+    FormMessage,
 } from "@/components/ui/form"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
@@ -28,17 +28,17 @@ const formSchema = toTypedSchema(
     v.object({
         url: v.pipe(v.string(), v.url("Invalid Url")),
         displayText: v.optional(v.string()),
-        openInSameTab: v.optional(v.boolean())
-    })
+        openInSameTab: v.optional(v.boolean()),
+    }),
 )
 
 const form = useForm({
     initialValues: {
         url: "",
         displayText: "",
-        openInSameTab: false
+        openInSameTab: false,
     },
-    validationSchema: formSchema
+    validationSchema: formSchema,
 })
 
 const dialogOpen = ref(false)
@@ -91,10 +91,10 @@ const handleFormSubmit = form.handleSubmit((values) => {
                     type: "link",
                     attrs: {
                         href: values.url,
-                        target: values.openInSameTab ? "_self" : "_blank"
-                    }
-                }
-            ]
+                        target: values.openInSameTab ? "_self" : "_blank",
+                    },
+                },
+            ],
         })
         .run()
 })

@@ -8,7 +8,7 @@ import {
     DropdownMenuContent,
     DropdownMenuRadioItem,
     DropdownMenuRadioGroup,
-    DropdownMenuTrigger
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { Kbd } from "@/components/ui/kbd"
@@ -22,42 +22,42 @@ const levelToFontSizeClass = {
     "4": "text-xl",
     "3": "text-2xl",
     "2": "text-3xl",
-    "1": "text-4xl"
+    "1": "text-4xl",
 }
 
 const textLevels = [
     {
         level: "0",
-        label: "Normal text"
+        label: "Normal text",
     },
     {
         level: "1",
-        label: "Heading 1"
+        label: "Heading 1",
     },
     {
         level: "2",
-        label: "Heading 2"
+        label: "Heading 2",
     },
     {
         level: "3",
-        label: "Heading 3"
+        label: "Heading 3",
     },
     {
         level: "4",
-        label: "Heading 4"
+        label: "Heading 4",
     },
     {
         level: "5",
-        label: "Heading 5"
+        label: "Heading 5",
     },
     {
         level: "6",
-        label: "Heading 6"
-    }
+        label: "Heading 6",
+    },
 ] as const
 
 const level = computed(() =>
-    !props.editor.isActive("heading") ? "0" : String(props.editor.getAttributes("heading").level)
+    !props.editor.isActive("heading") ? "0" : String(props.editor.getAttributes("heading").level),
 )
 
 const handleHeadingLevelSelection = (level: string) => {

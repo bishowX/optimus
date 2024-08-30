@@ -44,9 +44,9 @@ const editor = new Editor({
             addKeyboardShortcuts() {
                 return {
                     "Mod-Shift-i": () => false,
-                    "Mod-i": () => this.editor.commands.toggleItalic()
+                    "Mod-i": () => this.editor.commands.toggleItalic(),
                 }
-            }
+            },
         }),
         Underline,
         Strike,
@@ -54,14 +54,14 @@ const editor = new Editor({
         Superscript,
         Link.extend({ inclusive: false }).configure({
             openOnClick: false,
-            HTMLAttributes: { class: "cursor-pointer" }
+            HTMLAttributes: { class: "cursor-pointer" },
         }),
         TextAlign.configure({
-            types: ["heading", "paragraph"]
+            types: ["heading", "paragraph"],
         }),
         Image,
         DropCursor,
-        LineChart
+        LineChart,
     ],
     onUpdate(props) {
         emits("update", props)
@@ -71,9 +71,9 @@ const editor = new Editor({
     },
     editorProps: {
         attributes: {
-            class: "w-full min-h-72 max-w-full prose dark:prose-invert prose-sm sm:prose sm:max-w-full lg:prose-lg focus:outline-none"
-        }
-    }
+            class: "w-full min-h-72 max-w-full prose dark:prose-invert prose-sm sm:prose sm:max-w-full lg:prose-lg focus:outline-none",
+        },
+    },
 })
 onBeforeUnmount(() => {
     editor.destroy()

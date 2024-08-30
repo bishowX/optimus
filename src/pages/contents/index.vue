@@ -4,7 +4,7 @@ import type {
     ColumnDef,
     ColumnFiltersState,
     SortingState,
-    VisibilityState
+    VisibilityState,
 } from "@tanstack/vue-table"
 import {
     FlexRender,
@@ -12,7 +12,7 @@ import {
     getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
-    useVueTable
+    useVueTable,
 } from "@tanstack/vue-table"
 import { ArrowUpDown, ChevronDown } from "lucide-vue-next"
 
@@ -23,7 +23,7 @@ import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
     DropdownMenuContent,
-    DropdownMenuTrigger
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import {
@@ -32,7 +32,7 @@ import {
     TableCell,
     TableHead,
     TableHeader,
-    TableRow
+    TableRow,
 } from "@/components/ui/table"
 import { valueUpdater } from "@/lib/utils"
 import type { Content } from "@/data/content"
@@ -42,8 +42,8 @@ const columns: ColumnDef<Content>[] = [
     {
         accessorKey: "title",
         header: "Title",
-        cell: ({ row }) => h("div", { class: "capitalize" }, row.getValue("title"))
-    }
+        cell: ({ row }) => h("div", { class: "capitalize" }, row.getValue("title")),
+    },
 ]
 
 const sorting = ref<SortingState>([])
@@ -76,8 +76,8 @@ const table = useVueTable({
         },
         get rowSelection() {
             return rowSelection.value
-        }
-    }
+        },
+    },
 })
 
 const router = useRouter()

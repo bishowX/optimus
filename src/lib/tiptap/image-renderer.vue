@@ -27,17 +27,17 @@ const isActive = ref(false)
 
 const src = computed({
     get: () => props.node.attrs.src,
-    set: (newSrc: string) => props.updateAttributes({ src: newSrc })
+    set: (newSrc: string) => props.updateAttributes({ src: newSrc }),
 })
 
 const width = computed({
     get: () => parseInt(props.node.attrs.width),
-    set: (newWidth: number) => props.updateAttributes({ width: newWidth })
+    set: (newWidth: number) => props.updateAttributes({ width: newWidth }),
 })
 
 const height = computed({
     get: () => parseInt(props.node.attrs.height),
-    set: (newHeight: number) => props.updateAttributes({ height: newHeight })
+    set: (newHeight: number) => props.updateAttributes({ height: newHeight }),
 })
 
 const onResize = ({ w, h }: { w: number; h: number }) => {

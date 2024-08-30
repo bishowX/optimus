@@ -12,7 +12,7 @@ const props = defineProps<{
         :class="
             cn(
                 'inline-flex items-center rounded-sm border px-2.5 py-0.5 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground',
-                props.class
+                props.class,
             )
         "
     >

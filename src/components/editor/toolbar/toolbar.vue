@@ -9,7 +9,7 @@ import {
     AlignLeft,
     AlignRight,
     AlignJustify,
-    LineChart
+    LineChart,
 } from "lucide-vue-next"
 
 import { Button } from "@/components/ui/button"
@@ -31,8 +31,8 @@ const makeChart = () => {
         .insertContent({
             type: "LineChart",
             attrs: {
-                data: generateRandomGrowthData(2000, 24)
-            }
+                data: generateRandomGrowthData(2000, 24),
+            },
         })
         .run()
 }

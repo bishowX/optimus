@@ -4,7 +4,7 @@ import {
     SplitterGroup,
     type SplitterGroupEmits,
     type SplitterGroupProps,
-    useForwardPropsEmits
+    useForwardPropsEmits,
 } from "radix-vue"
 import { cn } from "@/lib/utils"
 

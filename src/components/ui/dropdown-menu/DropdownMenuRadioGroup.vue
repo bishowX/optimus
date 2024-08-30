@@ -2,7 +2,7 @@
 import {
     DropdownMenuRadioGroup,
     type DropdownMenuRadioGroupProps,
-    useForwardPropsEmits
+    useForwardPropsEmits,
 } from "radix-vue"
 
 const props = defineProps<DropdownMenuRadioGroupProps>()

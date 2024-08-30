@@ -12,7 +12,7 @@ import {
     DialogDescription,
     DialogHeader,
     DialogTitle,
-    DialogTrigger
+    DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -25,8 +25,8 @@ const imgDialogOpen = ref(false)
 
 const imgForm = useForm({
     validationSchema: toTypedSchema(
-        v.object({ url: v.pipe(v.string("Image url is required"), v.url("Invalid image url")) })
-    )
+        v.object({ url: v.pipe(v.string("Image url is required"), v.url("Invalid image url")) }),
+    ),
 })
 
 const handleFileChange = (e: Event) => {
@@ -43,7 +43,7 @@ const handleImageFormSubmit = imgForm.handleSubmit((values) => {
         .chain()
         .focus()
         .setImage({
-            src: values.url
+            src: values.url,
         })
         .run()
 })

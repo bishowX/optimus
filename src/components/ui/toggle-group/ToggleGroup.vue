@@ -5,7 +5,7 @@ import {
     ToggleGroupRoot,
     type ToggleGroupRootEmits,
     type ToggleGroupRootProps,
-    useForwardPropsEmits
+    useForwardPropsEmits,
 } from "radix-vue"
 import type { toggleVariants } from "@/components/ui/toggle"
 import { cn } from "@/lib/utils"
@@ -23,7 +23,7 @@ const emits = defineEmits<ToggleGroupRootEmits>()
 
 provide("toggleGroup", {
     variant: props.variant,
-    size: props.size
+    size: props.size,
 })
 
 const delegatedProps = computed(() => {
