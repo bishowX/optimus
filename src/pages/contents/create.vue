@@ -50,6 +50,7 @@ const contents = useStorage<typeof values & { slug: string }[]>("contents", [])
 const router = useRouter()
 
 const handleFormSubmit = handleSubmit((values) => {
+    console.log("values: ", values)
     contents.value.push({ ...values, slug: slug.value })
     router.push("/contents")
 })
@@ -112,6 +113,6 @@ const handleFormSubmit = handleSubmit((values) => {
             </FormItem>
         </FormField>
 
-        <Button>Submit</Button>
+        <Button type="submit">Submit</Button>
     </form>
 </template>
