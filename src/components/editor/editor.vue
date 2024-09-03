@@ -16,9 +16,12 @@ import Superscript from "@tiptap/extension-superscript"
 import Link from "@tiptap/extension-link"
 import TextAlign from "@tiptap/extension-text-align"
 import DropCursor from "@tiptap/extension-dropcursor"
+import BulletList from "@tiptap/extension-bullet-list"
+import ListItem from "@tiptap/extension-list-item"
+import OrderedList from "@tiptap/extension-ordered-list"
+
 import { Image } from "@/lib/tiptap/image"
 import { LineChart } from "@/lib/tiptap/line-chart"
-
 import { Toolbar } from "@/components/editor/toolbar"
 
 const props = defineProps<{
@@ -35,6 +38,9 @@ const editor = new Editor({
     extensions: [
         Document,
         Paragraph,
+        BulletList,
+        OrderedList,
+        ListItem,
         Text,
         Heading,
         Bold,

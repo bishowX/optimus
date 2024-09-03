@@ -10,6 +10,8 @@ import {
     AlignRight,
     AlignJustify,
     LineChart,
+    List,
+    ListOrdered,
 } from "lucide-vue-next"
 
 import { Button } from "@/components/ui/button"
@@ -96,6 +98,39 @@ const makeChart = () => {
                 </TooltipTrigger>
                 <TooltipContent>
                     Toggle strike <Kbd class="ml-2">Ctrl + Shift + S</Kbd>
+                </TooltipContent>
+            </Tooltip>
+        </div>
+
+        <Separator class="h-6" orientation="vertical" />
+        <div class="flex items-center gap-2">
+            <Tooltip>
+                <TooltipTrigger as-child>
+                    <Toggle
+                        :pressed="editor.isActive('bulletList')"
+                        @update:pressed="editor.chain().toggleBulletList().focus().run()"
+                        aria-label="Toggle bullet list"
+                    >
+                        <List class="h-4 w-4" />
+                    </Toggle>
+                </TooltipTrigger>
+                <TooltipContent>
+                    Bullet list <Kbd class="ml-2">No shortcut yet</Kbd>
+                </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+                <TooltipTrigger as-child>
+                    <Toggle
+                        :pressed="editor.isActive('orderedList')"
+                        @update:pressed="editor.chain().toggleOrderedList().focus().run()"
+                        aria-label="Toggle ordered list"
+                    >
+                        <ListOrdered class="h-4 w-4" />
+                    </Toggle>
+                </TooltipTrigger>
+                <TooltipContent :side-offset="10">
+                    Ordered list <Kbd class="ml-2">No shortcut yet</Kbd>
                 </TooltipContent>
             </Tooltip>
         </div>
