@@ -98,7 +98,7 @@ const drop = (e: DragEvent) => {
                 >
                     <img
                         class="h-full rounded-md"
-                        v-if="imgForm.values.url"
+                        v-if="imgForm.values.url && imgForm.isFieldValid('url')"
                         :src="imgForm.values.url"
                         alt=""
                     />
