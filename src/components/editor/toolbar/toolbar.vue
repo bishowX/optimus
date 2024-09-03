@@ -39,7 +39,7 @@ const makeChart = () => {
 </script>
 
 <template>
-    <div class="w-full flex items-center gap-2">
+    <div class="w-full flex items-center gap-2 overflow-x-scroll">
         <Heading :editor="editor" />
         <Separator class="h-6" orientation="vertical" />
         <div class="flex items-center gap-2">
