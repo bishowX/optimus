@@ -105,7 +105,7 @@ const handleFormSubmit = handleSubmit((values) => {
                                 setFieldValue('content', props.editor.getText().trim() ? html : '')
                             }
                         "
-                        @blur="componentField.onBlur"
+                        @blur="({ event }) => componentField.onBlur(event)"
                         content=""
                     />
                 </FormControl>
