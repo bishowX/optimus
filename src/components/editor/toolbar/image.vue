@@ -72,16 +72,16 @@ const drop = (e: DragEvent) => {
 
 <template>
     <Dialog :open="imgDialogOpen" @update:open="(open) => (imgDialogOpen = open)">
-        <DialogTrigger>
-            <Tooltip>
-                <TooltipTrigger>
+        <Tooltip>
+            <DialogTrigger as-child>
+                <TooltipTrigger as-child>
                     <Button variant="ghost" size="icon">
                         <ImagePlus class="w-4 h-4" />
                     </Button>
                 </TooltipTrigger>
                 <TooltipContent> Add image </TooltipContent>
-            </Tooltip>
-        </DialogTrigger>
+            </DialogTrigger>
+        </Tooltip>
         <DialogContent class="sm:max-w-[500px]">
             <DialogHeader>
                 <DialogTitle>Upload Image</DialogTitle>

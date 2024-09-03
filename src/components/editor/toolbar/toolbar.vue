@@ -44,7 +44,7 @@ const makeChart = () => {
         <Separator class="h-6" orientation="vertical" />
         <div class="flex items-center gap-2">
             <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger as-child>
                     <Toggle
                         :pressed="editor.isActive('bold')"
                         @update:pressed="editor.chain().toggleBold().focus().run()"
@@ -57,7 +57,7 @@ const makeChart = () => {
             </Tooltip>
 
             <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger as-child>
                     <Toggle
                         :pressed="editor.isActive('italic')"
                         @update:pressed="editor.chain().toggleItalic().focus().run()"
@@ -72,7 +72,7 @@ const makeChart = () => {
             </Tooltip>
 
             <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger as-child>
                     <Toggle
                         :pressed="editor.isActive('underline')"
                         @update:pressed="editor.chain().toggleUnderline().focus().run()"
@@ -85,7 +85,7 @@ const makeChart = () => {
             </Tooltip>
 
             <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger as-child>
                     <Toggle
                         :pressed="editor.isActive('strike')"
                         @update:pressed="editor.chain().toggleStrike().focus().run()"
@@ -104,7 +104,7 @@ const makeChart = () => {
 
         <div class="flex items-center gap-1">
             <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger as-child>
                     <Toggle
                         :pressed="editor.isActive({ textAlign: 'left' })"
                         @update:pressed="editor.chain().focus().setTextAlign('left').run()"
@@ -119,7 +119,7 @@ const makeChart = () => {
             </Tooltip>
 
             <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger as-child>
                     <Toggle
                         :pressed="editor.isActive({ textAlign: 'center' })"
                         @update:pressed="editor.chain().focus().setTextAlign('center').run()"
@@ -134,7 +134,7 @@ const makeChart = () => {
             </Tooltip>
 
             <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger as-child>
                     <Toggle
                         :pressed="editor.isActive({ textAlign: 'justify' })"
                         @update:pressed="editor.chain().focus().setTextAlign('justify').run()"
@@ -149,7 +149,7 @@ const makeChart = () => {
             </Tooltip>
 
             <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger as-child>
                     <Toggle
                         :pressed="editor.isActive({ textAlign: 'right' })"
                         @update:pressed="editor.chain().focus().setTextAlign('right').run()"
@@ -175,7 +175,7 @@ const makeChart = () => {
 
         <div class="flex items-center gap-1">
             <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger as-child>
                     <Button @click="makeChart" variant="ghost" size="icon">
                         <LineChart class="w-4 h-4" />
                     </Button>

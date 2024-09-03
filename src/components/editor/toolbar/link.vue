@@ -119,7 +119,7 @@ const shouldShowLinkToolbar: InstanceType<typeof BubbleMenu>["$props"]["shouldSh
     <BubbleMenu :should-show="dialogOpen ? () => false : shouldShowLinkToolbar" :editor="editor">
         <div class="flex gap-x-1 items-center rounded-md border bg-background p-1">
             <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger as-child>
                     <Toggle
                         @update:pressed="editor.chain().focus().unsetLink().run()"
                         aria-label="Remove link"
@@ -131,7 +131,7 @@ const shouldShowLinkToolbar: InstanceType<typeof BubbleMenu>["$props"]["shouldSh
             </Tooltip>
 
             <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger as-child>
                     <Button
                         variant="ghost"
                         size="icon"
@@ -145,7 +145,7 @@ const shouldShowLinkToolbar: InstanceType<typeof BubbleMenu>["$props"]["shouldSh
             </Tooltip>
 
             <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger as-child>
                     <Button
                         variant="ghost"
                         size="icon"
@@ -159,9 +159,9 @@ const shouldShowLinkToolbar: InstanceType<typeof BubbleMenu>["$props"]["shouldSh
             </Tooltip>
         </div>
     </BubbleMenu>
-    <Popover v-model:open="dialogOpen">
-        <PopoverTrigger :disabled="editor.isActive('link')">
-            <Tooltip>
+    <Tooltip>
+        <Popover v-model:open="dialogOpen">
+            <PopoverTrigger :disabled="editor.isActive('link')" as-child>
                 <TooltipTrigger as-child>
                     <Button
                         size="icon"
@@ -173,56 +173,60 @@ const shouldShowLinkToolbar: InstanceType<typeof BubbleMenu>["$props"]["shouldSh
                     </Button>
                 </TooltipTrigger>
                 <TooltipContent> Create link </TooltipContent>
-            </Tooltip>
-        </PopoverTrigger>
-        <PopoverContent class="w-96">
-            <form @submit="handleFormSubmit" class="flex flex-col gap-4">
-                <FormField
-                    v-slot="{ componentField }"
-                    name="url"
-                    :validate-on-model-update="form.submitCount.value > 0"
-                    :validate-on-blur="false"
-                >
-                    <FormItem>
-                        <FormLabel>Url</FormLabel>
-                        <FormControl>
-                            <Input v-bind="componentField" placeholder="https://www.example.com" />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                </FormField>
+            </PopoverTrigger>
 
-                <FormField v-slot="{ componentField }" name="displayText">
-                    <FormItem>
-                        <FormLabel
-                            >Display text
-                            <span class="text-muted-foreground">(optional)</span></FormLabel
-                        >
-                        <FormControl>
-                            <Input v-bind="componentField" placeholder="Example" />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                </FormField>
-
-                <FormField v-slot="{ value, handleChange }" name="openInSameTab">
-                    <FormItem
-                        class="flex flex-row items-center justify-between rounded-lg border p-4"
+            <PopoverContent class="w-96">
+                <form @submit="handleFormSubmit" class="flex flex-col gap-4">
+                    <FormField
+                        v-slot="{ componentField }"
+                        name="url"
+                        :validate-on-model-update="form.submitCount.value > 0"
+                        :validate-on-blur="false"
                     >
-                        <div class="space-y-0.5">
-                            <FormLabel class="text-base"> Open in same tab </FormLabel>
-                            <FormDescription>
-                                Control whether links open in the same tab or a new tab.
-                            </FormDescription>
-                        </div>
-                        <FormControl>
-                            <Switch :checked="value" @update:checked="handleChange" />
-                        </FormControl>
-                    </FormItem>
-                </FormField>
-                <!-- For submitting form on Enter -->
-                <input type="submit" hidden />
-            </form>
-        </PopoverContent>
-    </Popover>
+                        <FormItem>
+                            <FormLabel>Url</FormLabel>
+                            <FormControl>
+                                <Input
+                                    v-bind="componentField"
+                                    placeholder="https://www.example.com"
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    </FormField>
+
+                    <FormField v-slot="{ componentField }" name="displayText">
+                        <FormItem>
+                            <FormLabel
+                                >Display text
+                                <span class="text-muted-foreground">(optional)</span></FormLabel
+                            >
+                            <FormControl>
+                                <Input v-bind="componentField" placeholder="Example" />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    </FormField>
+
+                    <FormField v-slot="{ value, handleChange }" name="openInSameTab">
+                        <FormItem
+                            class="flex flex-row items-center justify-between rounded-lg border p-4"
+                        >
+                            <div class="space-y-0.5">
+                                <FormLabel class="text-base"> Open in same tab </FormLabel>
+                                <FormDescription>
+                                    Control whether links open in the same tab or a new tab.
+                                </FormDescription>
+                            </div>
+                            <FormControl>
+                                <Switch :checked="value" @update:checked="handleChange" />
+                            </FormControl>
+                        </FormItem>
+                    </FormField>
+                    <!-- For submitting form on Enter -->
+                    <input type="submit" hidden />
+                </form>
+            </PopoverContent>
+        </Popover>
+    </Tooltip>
 </template>
