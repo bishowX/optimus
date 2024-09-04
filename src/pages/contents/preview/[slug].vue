@@ -13,7 +13,7 @@ console.log("content: ", content)
 </script>
 
 <template>
-    <div v-if="content" class="prose dark:prose-invert mx-auto lg:prose-xl">
+    <div v-if="content" class="prose dark:prose-invert mx-auto max-w-4xl pt-4">
         <h1>{{ content.title }}</h1>
         <p>{{ content.snippet }}</p>
         <div v-html="content.content" v-parse-line-chart></div>
