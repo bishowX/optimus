@@ -140,7 +140,12 @@ onUnmounted(() => {
     >
         <canvas ref="canvasRef" class="absolute top-0 left-0 w-full h-full"></canvas>
         <div class="z-10 text-center">
-            <h1 class="text-4xl font-bold text-foreground mb-4">Page Not Found</h1>
+            <h1 class="text-4xl font-bold text-foreground mb-4">
+                <span class="inline-block animate-bounce">4</span>
+                <span class="inline-block animate-ping">0</span>
+                <span class="inline-block animate-spin">4</span>
+                <span class="inline-block animate-pulse ml-2">Page Not Found</span>
+            </h1>
             <p class="text-xl text-muted-foreground mb-8">
                 Oops! The content you're looking for doesn't exist.
             </p>
