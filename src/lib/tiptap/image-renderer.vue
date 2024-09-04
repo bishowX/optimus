@@ -7,6 +7,7 @@
             :draggable="false"
             :lock-aspect-ratio="true"
             v-model:active="isActive"
+            class="custom-resizable"
         >
             <div
                 :style="`background-image:url('${src}');background-size:cover;background-repeat:no-repeat;position:absolute;top:0;left:0;right:0;bottom:0;`"
@@ -49,11 +50,45 @@ const setActive = () => {
     isActive.value = true
 }
 </script>
-
-<style scoped>
+<style>
 .tiptap-custom-image-container > div {
     position: relative;
     left: 0 !important;
     top: 0 !important;
+}
+
+.custom-resizable .vdr-handle {
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50% !important;
+    background-color: #ffffff !important;
+    border: 2px solid #3b82f6 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.2s ease !important;
+}
+
+.custom-resizable .vdr-handle:hover {
+    transform: scale(1.2) !important;
+    background-color: #3b82f6 !important;
+}
+
+.custom-resizable .vdr-handle-br {
+    bottom: -5px !important;
+    right: -5px !important;
+}
+
+.custom-resizable .vdr-handle-tl {
+    top: -5px !important;
+    left: -5px !important;
+}
+
+.custom-resizable .vdr-handle-tr {
+    top: -5px !important;
+    right: -5px !important;
+}
+
+.custom-resizable .vdr-handle-bl {
+    bottom: -5px !important;
+    left: -5px !important;
 }
 </style>
