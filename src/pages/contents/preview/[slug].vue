@@ -146,8 +146,12 @@ onUnmounted(() => {
                 <span class="inline-block animate-spin">4</span>
                 <span class="inline-block animate-pulse ml-2">Page Not Found</span>
             </h1>
-            <p class="text-xl text-muted-foreground mb-8">
+            <p class="text-xl text-muted-foreground mb-2">
                 Oops! The content you're looking for doesn't exist.
+</p>
+		<p class="text-sm text-muted-foreground mb-8">
+                This is likely caused because of you fucking up the url.
+            
             </p>
             <RouterLink
                 to="/contents"
