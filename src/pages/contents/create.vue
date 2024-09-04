@@ -2,7 +2,6 @@
 import { computed } from "vue"
 import slugify from "slugify"
 
-// form
 import { useForm } from "vee-validate"
 import { toTypedSchema } from "@vee-validate/valibot"
 import * as v from "valibot"
@@ -21,6 +20,7 @@ import { Button } from "@/components/ui/button"
 import { Editor } from "@/components/editor"
 import { useStorage } from "@vueuse/core"
 import { useRouter } from "vue-router"
+import type { Content } from "@/data/content"
 
 const formSchema = toTypedSchema(
     v.object({
@@ -31,6 +31,7 @@ const formSchema = toTypedSchema(
             v.maxLength(2000),
         ),
         content: v.pipe(v.string(), v.minLength(1, "Content cannot be empty")),
+        publishedOn: v.string(), // Changed to v.string()
     }),
 )
 
@@ -40,18 +41,22 @@ const { handleSubmit, values, setFieldValue } = useForm({
         content: "",
         snippet: "",
         title: "",
+        publishedOn: new Date().toISOString(),
     },
 })
 
 const slug = computed(() => slugify(values.title as string, { lower: true }))
 
-const contents = useStorage<typeof values & { slug: string }[]>("contents", [])
+const contents = useStorage<Content[]>("contents", [])
 
 const router = useRouter()
 
 const handleFormSubmit = handleSubmit((values) => {
-    console.log("values: ", values)
-    contents.value.push({ ...values, slug: slug.value })
+    contents.value.push({
+        ...values,
+        slug: slug.value,
+        publishedOn: values.publishedOn,
+    })
     router.push("/contents")
 })
 </script>
@@ -66,6 +71,17 @@ const handleFormSubmit = handleSubmit((values) => {
                     <Input placeholder="title" v-bind="componentField" />
                 </FormControl>
                 <FormDescription />
+                <FormMessage />
+            </FormItem>
+        </FormField>
+
+        <!-- Published On  -->
+        <FormField v-slot="{ componentField }" name="publishedOn">
+            <FormItem v-auto-animate>
+                <FormLabel>Published On</FormLabel>
+                <FormControl>
+                    <Input type="date" v-bind="componentField" />
+                </FormControl>
                 <FormMessage />
             </FormItem>
         </FormField>
