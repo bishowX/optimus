@@ -89,7 +89,9 @@ const handleFormSubmit = handleSubmit((values) => {
         <!-- Title slug -->
         <FormField v-slot="{ componentField }" name="titleSlug">
             <FormItem>
-                <FormLabel>Slug</FormLabel>
+                <FormLabel
+                    >Slug <span class="text-xs text-gray-500">(Auto generated)</span></FormLabel
+                >
                 <FormControl>
                     <Input disabled :value="slug" v-bind="componentField" />
                 </FormControl>
