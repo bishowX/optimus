@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue"
 import { RouterLink, RouterView } from "vue-router"
+import { onKeyStroke } from "@vueuse/core"
 
 import type { LinkProp } from "@/components/layout/side-nav.vue"
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"
@@ -30,6 +31,9 @@ watch(isSmallScreen, (n) => {
     if (n) navPanelRef.value?.collapse()
     else navPanelRef.value?.expand()
 })
+
+onKeyStroke("[", () => navPanelRef.value?.collapse())
+onKeyStroke("]", () => navPanelRef.value?.expand())
 
 const links: LinkProp[] = [
     {
