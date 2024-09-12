@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { watch } from "vue"
+import { RouterLink } from "vue-router"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -11,22 +13,27 @@ import {
     DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useAuth } from "@/composables/useAuth"
+
+const { user } = useAuth()
 </script>
 
 <template>
     <DropdownMenu>
-        <DropdownMenuTrigger as-child>
+        <DropdownMenuTrigger v-if="user" as-child>
             <Button variant="ghost" size="icon">
                 <Avatar class="h-8 w-8">
-                    <AvatarFallback>BP</AvatarFallback>
+                    <AvatarFallback class="uppercase">
+                        {{ user.first_name[0] }}{{ user.last_name[0] }}
+                    </AvatarFallback>
                 </Avatar>
             </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent class="w-56" align="end">
+        <DropdownMenuContent v-if="user" class="w-56" align="end">
             <DropdownMenuLabel class="font-normal flex">
                 <div class="flex flex-col space-y-1">
-                    <p class="text-sm font-medium leading-none">Bishow</p>
-                    <p class="text-xs leading-none text-muted-foreground">m@example.com</p>
+                    <p class="text-sm font-medium leading-none">{{ user.first_name }}</p>
+                    <p class="text-xs leading-none text-muted-foreground">{{ user.email }}</p>
                 </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
@@ -46,7 +53,7 @@ import {
                 <DropdownMenuItem>New Team</DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem :as="RouterLink" to="/logout">
                 Log out
                 <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
             </DropdownMenuItem>
