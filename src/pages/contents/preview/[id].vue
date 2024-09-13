@@ -6,12 +6,12 @@ import { format } from "date-fns"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { ref, onMounted, onUnmounted } from "vue"
+import { api } from "@/lib/axios"
 
 const route = useRoute()
-const slug = (route.params as { slug: string }).slug
-const contents = useStorage<Content[]>("contents", [])
+const id = (route.params as { id: string }).id
 
-const content = contents.value.find((c) => c.slug === slug)
+const content = ref<Content | null>(null)
 
 const formatDate = (dateString: string) => {
     return format(new Date(dateString), "MMMM d, yyyy")
@@ -112,10 +112,13 @@ const animate = () => {
     animationFrameId = requestAnimationFrame(animate)
 }
 
-onMounted(() => {
+onMounted(async () => {
     initCanvas()
     animate()
     window.addEventListener("resize", initCanvas)
+
+    const res = await api.get(`/contents/${id}`)
+    content.value = res.data
 })
 
 onUnmounted(() => {
@@ -127,7 +130,7 @@ onUnmounted(() => {
 <template>
     <div v-if="content" class="prose dark:prose-invert mx-auto max-w-4xl pt-4">
         <span class="text-sm text-gray-500 inline-block mb-2">{{
-            formatDate(content.publishedOn)
+            formatDate(content.published_on)
         }}</span>
         <h1>{{ content.title }}</h1>
         <p>{{ content.snippet }}</p>
@@ -148,10 +151,9 @@ onUnmounted(() => {
             </h1>
             <p class="text-xl text-muted-foreground mb-2">
                 Oops! The content you're looking for doesn't exist.
-</p>
-		<p class="text-sm text-muted-foreground mb-8">
+            </p>
+            <p class="text-sm text-muted-foreground mb-8">
                 This is likely caused because of you fucking up the url.
-            
             </p>
             <RouterLink
                 to="/contents"

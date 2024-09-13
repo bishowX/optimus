@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed, ref } from "vue"
 import slugify from "slugify"
 
 import { useForm } from "vee-validate"
@@ -21,6 +21,7 @@ import { Editor } from "@/components/editor"
 import { useStorage } from "@vueuse/core"
 import { useRouter } from "vue-router"
 import type { Content } from "@/data/content"
+import { api } from "@/lib/axios"
 
 const formSchema = toTypedSchema(
     v.object({
@@ -31,7 +32,6 @@ const formSchema = toTypedSchema(
             v.maxLength(2000),
         ),
         content: v.pipe(v.string(), v.minLength(1, "Content cannot be empty")),
-        publishedOn: v.string(), // Changed to v.string()
     }),
 )
 
@@ -41,23 +41,22 @@ const { handleSubmit, values, setFieldValue } = useForm({
         content: "",
         snippet: "",
         title: "",
-        publishedOn: new Date().toISOString(),
     },
 })
 
 const slug = computed(() => slugify(values.title as string, { lower: true }))
 
-const contents = useStorage<Content[]>("contents", [])
-
 const router = useRouter()
 
-const handleFormSubmit = handleSubmit((values) => {
-    contents.value.push({
-        ...values,
-        slug: slug.value,
-        publishedOn: values.publishedOn,
-    })
-    router.push("/contents")
+const loading = ref(false)
+const handleFormSubmit = handleSubmit(async (values) => {
+    try {
+        loading.value = true
+        await api.post("/contents", values)
+        router.push("/contents")
+    } finally {
+        loading.value = false
+    }
 })
 </script>
 
@@ -71,17 +70,6 @@ const handleFormSubmit = handleSubmit((values) => {
                     <Input placeholder="title" v-bind="componentField" />
                 </FormControl>
                 <FormDescription />
-                <FormMessage />
-            </FormItem>
-        </FormField>
-
-        <!-- Published On  -->
-        <FormField v-slot="{ componentField }" name="publishedOn">
-            <FormItem v-auto-animate>
-                <FormLabel>Published On</FormLabel>
-                <FormControl>
-                    <Input type="date" v-bind="componentField" />
-                </FormControl>
                 <FormMessage />
             </FormItem>
         </FormField>
@@ -131,6 +119,9 @@ const handleFormSubmit = handleSubmit((values) => {
             </FormItem>
         </FormField>
 
-        <Button type="submit">Submit</Button>
+        <Button :disabled="loading" type="submit">
+            <span v-if="loading">Saving</span>
+            <span v-else>Save</span>
+        </Button>
     </form>
 </template>

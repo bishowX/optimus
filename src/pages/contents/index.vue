@@ -16,7 +16,7 @@ import {
 } from "@tanstack/vue-table"
 import { ArrowUpDown, ChevronDown } from "lucide-vue-next"
 
-import { h, ref } from "vue"
+import { computed, h, onMounted, ref } from "vue"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -37,6 +37,7 @@ import {
 import { valueUpdater } from "@/lib/utils"
 import type { Content } from "@/data/content"
 import { useRouter } from "vue-router"
+import { api } from "@/lib/axios"
 
 const columns: ColumnDef<Content>[] = [
     {
@@ -51,10 +52,12 @@ const columnFilters = ref<ColumnFiltersState>([])
 const columnVisibility = ref<VisibilityState>({})
 const rowSelection = ref({})
 
-const contents = useStorage("contents", [])
+const contents = ref<Content[]>([])
 
 const table = useVueTable({
-    data: contents.value,
+    get data() {
+        return contents.value
+    },
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -82,9 +85,14 @@ const table = useVueTable({
 
 const router = useRouter()
 
-const onRowClick = (slug: string) => {
-    router.push(`/contents/preview/${slug}`)
+const onRowClick = (id: string) => {
+    router.push(`/contents/preview/${id}`)
 }
+
+onMounted(async () => {
+    const res = await api.get("/contents")
+    contents.value = res.data
+})
 </script>
 
 <template>
@@ -138,7 +146,7 @@ const onRowClick = (slug: string) => {
                     <template v-if="table.getRowModel().rows?.length">
                         <TableRow
                             v-for="row in table.getRowModel().rows"
-                            @click="() => onRowClick(row.original.slug)"
+                            @click="() => onRowClick(row.original.id)"
                             :key="row.id"
                             :data-state="row.getIsSelected() && 'selected'"
                             class="cursor-pointer"
