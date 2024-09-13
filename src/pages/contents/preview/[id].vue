@@ -7,6 +7,8 @@ import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { ref, onMounted, onUnmounted } from "vue"
 import { api } from "@/lib/axios"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { AlertCircle } from "lucide-vue-next"
 
 const route = useRoute()
 const id = (route.params as { id: string }).id
@@ -112,13 +114,24 @@ const animate = () => {
     animationFrameId = requestAnimationFrame(animate)
 }
 
+const loading = ref(false)
+const error = ref("")
+
 onMounted(async () => {
     initCanvas()
     animate()
     window.addEventListener("resize", initCanvas)
 
-    const res = await api.get(`/contents/${id}`)
-    content.value = res.data
+    try {
+        error.value = ""
+        loading.value = true
+        const res = await api.get(`/contents/${id}`)
+        content.value = res.data
+    } catch (e: any) {
+        error.value = e?.message || "Something went wrong! Please try again later."
+    } finally {
+        loading.value = false
+    }
 })
 
 onUnmounted(() => {
@@ -137,7 +150,7 @@ onUnmounted(() => {
         <div v-html="content.content" v-parse-line-chart></div>
     </div>
     <div
-        v-else
+        v-else-if="!error && !loading"
         ref="containerRef"
         class="flex flex-col items-center justify-center bg-background relative overflow-hidden h-full"
     >
@@ -163,6 +176,13 @@ onUnmounted(() => {
             </RouterLink>
         </div>
     </div>
+    <Alert v-if="error" variant="destructive">
+        <AlertCircle class="w-4 h-4" />
+        <AlertTitle>Error</AlertTitle>
+        <AlertDescription>
+            {{ error }}
+        </AlertDescription>
+    </Alert>
 </template>
 
 <style scoped>

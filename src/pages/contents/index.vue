@@ -14,7 +14,7 @@ import {
     getSortedRowModel,
     useVueTable,
 } from "@tanstack/vue-table"
-import { ArrowUpDown, ChevronDown } from "lucide-vue-next"
+import { AlertCircle, ArrowUpDown, ChevronDown, LoaderCircle } from "lucide-vue-next"
 
 import { computed, h, onMounted, ref } from "vue"
 import { Button } from "@/components/ui/button"
@@ -38,6 +38,7 @@ import { valueUpdater } from "@/lib/utils"
 import type { Content } from "@/data/content"
 import { useRouter } from "vue-router"
 import { api } from "@/lib/axios"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 const columns: ColumnDef<Content>[] = [
     {
@@ -89,21 +90,36 @@ const onRowClick = (id: string) => {
     router.push(`/contents/preview/${id}`)
 }
 
+const loading = ref(false)
+const error = ref("")
 onMounted(async () => {
-    const res = await api.get("/contents")
-    contents.value = res.data
+    try {
+        error.value = ""
+        loading.value = true
+        await new Promise((res) => setTimeout(res, 1500))
+        const res = await api.get("/contents")
+
+        contents.value = res.data
+    } catch (e: any) {
+        error.value = e?.message || "Something went wrong"
+    } finally {
+        loading.value = false
+    }
 })
 </script>
 
 <template>
     <div class="w-full">
         <div class="flex gap-2 items-center py-4">
-            <Input
-                class="max-w-sm"
-                placeholder="Filter by title"
-                :model-value="table.getColumn('title')?.getFilterValue() as string"
-                @update:model-value="table.getColumn('title')?.setFilterValue($event)"
-            />
+            <div class="flex items-center gap-4">
+                <Input
+                    class="max-w-sm"
+                    placeholder="Filter by title"
+                    :model-value="table.getColumn('title')?.getFilterValue() as string"
+                    @update:model-value="table.getColumn('title')?.setFilterValue($event)"
+                />
+                <LoaderCircle v-if="loading" class="w-8 h-8 animate-spin" />
+            </div>
             <DropdownMenu>
                 <DropdownMenuTrigger as-child>
                     <Button variant="outline" class="ml-auto">
@@ -129,7 +145,7 @@ onMounted(async () => {
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>
-        <div class="rounded-md border">
+        <div class="rounded-md border" v-if="!loading && contents.length">
             <Table>
                 <TableHeader>
                     <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
@@ -169,7 +185,10 @@ onMounted(async () => {
             </Table>
         </div>
 
-        <div class="flex items-center justify-end space-x-2 py-4">
+        <div
+            v-if="!loading && contents.length"
+            class="flex items-center justify-end space-x-2 py-4"
+        >
             <div class="space-x-2">
                 <Button
                     variant="outline"
@@ -189,5 +208,13 @@ onMounted(async () => {
                 </Button>
             </div>
         </div>
+
+        <Alert v-if="error" variant="destructive">
+            <AlertCircle class="w-4 h-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>
+                {{ error }}
+            </AlertDescription>
+        </Alert>
     </div>
 </template>
