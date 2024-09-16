@@ -5,8 +5,11 @@ import { onMounted } from "vue"
 const { logout } = useAuth()
 
 onMounted(async () => {
-    await logout()
-    window.location.reload()
+    try {
+        await logout()
+    } finally {
+        window.location.reload()
+    }
 })
 </script>
 
