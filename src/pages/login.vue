@@ -89,7 +89,6 @@ const onSubmit = handleSubmit(async (values) => {
     try {
         error.value = ""
         loading.value = true
-        await new Promise((resolve) => setTimeout(resolve, 3000))
         const resp = await api.post<{ access: string; refresh: string }>("/auth/login", values)
         const cookies = new Cookies(null, { path: "/" })
         cookies.set("access_token", resp.data.access)

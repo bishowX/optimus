@@ -96,7 +96,6 @@ onMounted(async () => {
     try {
         error.value = ""
         loading.value = true
-        await new Promise((res) => setTimeout(res, 1500))
         const res = await api.get("/contents")
 
         contents.value = res.data
