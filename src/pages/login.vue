@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/form"
 import { api } from "@/lib/axios"
 import { useRouter } from "vue-router"
+import { Separator } from "@/components/ui/separator"
 
 function validatePassword(password: string): boolean {
     const minLength = 8
@@ -168,6 +169,12 @@ const loginAsAdmin = () => {
                         <span v-if="loading">Logging in...</span>
                         <span v-else>Login</span>
                     </Button>
+
+                    <div class="flex items-center gap-2">
+                        <Separator class="shrink h-0.5 w-full" orientation="horizontal" />
+                        <p class="shrink-0 text-sm text-muted-foreground">Or use dummy accounts</p>
+                        <Separator class="shrink h-0.5 w-full" orientation="horizontal" />
+                    </div>
 
                     <div class="flex items-center justify-between gap-4">
                         <Button
