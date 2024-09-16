@@ -26,8 +26,8 @@ const isLoading = ref(false)
 const progress = ref(0)
 const showSecondLine = ref(false)
 
-let intervalId = null
-let timeoutId = null
+let intervalId: number | null = null
+let timeoutId: number | null = null
 
 const start = () => {
     // Delay the start of loading to avoid immediate display
