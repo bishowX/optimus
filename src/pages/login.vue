@@ -110,7 +110,8 @@ const loginAsEditor = () => {
 
 const loginAsAdmin = () => {
     toast("Not implemented!", {
-        description: "Admin access hasn't been implemented yet",
+        description:
+            "Admin access hasn't been implemented yet! but hang tight we are working on it.",
         action: {
             label: "Okay",
             onClick: () => console.log("Undo"),
