@@ -1,4 +1,5 @@
 import { createApp, h } from "vue"
+import { inject } from "@vercel/analytics"
 import { autoAnimatePlugin } from "@formkit/auto-animate/vue"
 
 import App from "@/app.vue"
@@ -7,6 +8,7 @@ import { router } from "@/router"
 import "./assets/main.css"
 import { LineChart } from "@/components/ui/chart-line"
 
+inject()
 const app = createApp(App)
 
 app.use(router)
