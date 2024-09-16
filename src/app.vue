@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, type ComponentInstance } from "vue"
+import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import NavigationIndicator from "@/components/navigation-indicator.vue"
 import { router } from "./router"
@@ -22,5 +23,6 @@ onMounted(() => {
     <TooltipProvider disableHoverableContent :delay-duration="0">
         <NavigationIndicator ref="navigationIndicator" />
         <RouterView />
+        <Toaster />
     </TooltipProvider>
 </template>

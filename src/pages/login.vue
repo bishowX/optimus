@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue"
+import { toast } from "vue-sonner"
 import { useForm } from "vee-validate"
 import * as v from "valibot"
 import { toTypedSchema } from "@vee-validate/valibot"
@@ -71,7 +72,7 @@ const formSchema = toTypedSchema(
     }),
 )
 
-const { handleSubmit, setFieldError } = useForm({
+const { handleSubmit, setFieldError, setFieldValue } = useForm({
     validationSchema: formSchema,
     initialValues: {
         email: "",
@@ -99,6 +100,22 @@ const onSubmit = handleSubmit(async (values) => {
         loading.value = false
     }
 })
+
+const loginAsEditor = () => {
+    setFieldValue("email", "editor@optimus.com")
+    setFieldValue("password", "Secure_passwd@123")
+    onSubmit()
+}
+
+const loginAsAdmin = () => {
+    toast("Not implemented!", {
+        description: "Admin access hasn't been implemented yet",
+        action: {
+            label: "Okay",
+            onClick: () => console.log("Undo"),
+        },
+    })
+}
 </script>
 
 <template>
@@ -151,6 +168,29 @@ const onSubmit = handleSubmit(async (values) => {
                         <span v-if="loading">Logging in...</span>
                         <span v-else>Login</span>
                     </Button>
+
+                    <div class="flex items-center justify-between gap-4">
+                        <Button
+                            type="button"
+                            @click="loginAsEditor"
+                            variant="outline"
+                            class="w-full"
+                            :disabled="loading"
+                        >
+                            <span v-if="loading">Logging in...</span>
+                            <span v-else>Login as Editor</span>
+                        </Button>
+                        <Button
+                            type="button"
+                            @click="loginAsAdmin"
+                            variant="outline"
+                            class="w-full"
+                            :disabled="loading"
+                        >
+                            <span v-if="loading">Logging in...</span>
+                            <span v-else>Login as Admin</span>
+                        </Button>
+                    </div>
                 </div>
                 <div class="mt-4 text-center text-sm">
                     Don't' have an account?
