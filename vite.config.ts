@@ -1,38 +1,7 @@
-import { fileURLToPath, URL } from "node:url"
-
-import { defineConfig } from "vite"
-import vue from "@vitejs/plugin-vue"
-import vueJsx from "@vitejs/plugin-vue-jsx"
-import vueDevTools from "vite-plugin-vue-devtools"
-import VueRouter from "unplugin-vue-router/vite"
-import Layouts from "vite-plugin-vue-layouts"
-import { visualizer } from "rollup-plugin-visualizer"
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react-swc'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [
-        VueRouter(),
-        vue(),
-        vueJsx(),
-        vueDevTools(),
-        Layouts({
-            defaultLayout: "default",
-            layoutsDirs: "src/layouts",
-            pagesDirs: "src/pages",
-        }),
-        visualizer(),
-    ],
-    resolve: {
-        alias: {
-            "@": fileURLToPath(new URL("./src", import.meta.url)),
-        },
-    },
-    server: {
-        proxy: {
-            "/api": {
-                target: "http://127.0.0.1:3000",
-                changeOrigin: true,
-            },
-        },
-    },
+  plugins: [react()],
 })
