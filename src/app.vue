@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import NavigationIndicator from "@/components/navigation-indicator.vue"
 import { router } from "./router"
+import AiDock from "./components/ai-dock.vue"
 
 const navigationIndicator = ref<ComponentInstance<typeof NavigationIndicator> | null>(null)
 
@@ -24,5 +25,6 @@ onMounted(() => {
         <NavigationIndicator ref="navigationIndicator" />
         <RouterView />
         <Toaster />
+        <AiDock />
     </TooltipProvider>
 </template>
