@@ -16,7 +16,7 @@ import {
 } from "@tanstack/vue-table"
 import { AlertCircle, ArrowUpDown, ChevronDown, LoaderCircle } from "lucide-vue-next"
 
-import { computed, h, onMounted, ref } from "vue"
+import { computed, h, onMounted, ref, watch } from "vue"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -36,7 +36,7 @@ import {
 } from "@/components/ui/table"
 import { valueUpdater } from "@/lib/utils"
 import type { Content } from "@/data/content"
-import { useRouter } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
 import { api } from "@/lib/axios"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
@@ -105,6 +105,19 @@ onMounted(async () => {
         loading.value = false
     }
 })
+
+const route = useRoute()
+
+table.getColumn("title")?.setFilterValue(route.query.searchTerm || "")
+
+watch(
+    () => route.query.searchTerm,
+    (n) => {
+        console.log("query changed: ", n)
+
+        table.getColumn("title")?.setFilterValue(n || "")
+    },
+)
 </script>
 
 <template>

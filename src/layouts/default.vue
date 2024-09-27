@@ -11,6 +11,7 @@ import SideNav from "@/components/layout/side-nav.vue"
 import UserNav from "@/components/layout/user-nav.vue"
 import ThemeSwitcher from "@/components/layout/theme-switcher.vue"
 import { useMediaQuery } from "@vueuse/core"
+import AiDock from "@/components/ai-dock.vue"
 
 const defaultLayout = [15, 85]
 const navPanelRef = ref<InstanceType<typeof ResizablePanel>>()
