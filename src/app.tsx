@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { ThemeProvider } from "@/components/layout/theme-provider"
 
-function App() {
+export function App() {
     return (
         <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
             <TooltipProvider>
@@ -14,5 +14,3 @@ function App() {
         </ThemeProvider>
     )
 }
-
-export default App

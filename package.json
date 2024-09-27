@@ -27,6 +27,8 @@
         "@radix-ui/react-toggle-group": "^1.1.0",
         "@radix-ui/react-tooltip": "^1.1.2",
         "@tanstack/react-table": "^8.20.5",
+        "@uidotdev/usehooks": "^2.4.1",
+        "axios": "^1.7.7",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
         "lucide-react": "^0.446.0",
@@ -39,6 +41,8 @@
         "sonner": "^1.5.0",
         "tailwind-merge": "^2.5.2",
         "tailwindcss-animate": "^1.0.7",
+        "universal-cookie": "^7.2.0",
+        "valibot": "^0.42.1",
         "zod": "^3.23.8"
     },
     "devDependencies": {
