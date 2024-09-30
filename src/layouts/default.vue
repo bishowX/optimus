@@ -11,10 +11,9 @@ import SideNav from "@/components/layout/side-nav.vue"
 import UserNav from "@/components/layout/user-nav.vue"
 import ThemeSwitcher from "@/components/layout/theme-switcher.vue"
 import { useMediaQuery } from "@vueuse/core"
-import AiDock from "@/components/ai-dock.vue"
 
-const defaultLayout = [15, 85]
-const navPanelRef = ref<InstanceType<typeof ResizablePanel>>()
+const defaultLayout = [10, 90]
+const navPanelRef = ref<InstanceType<typeof ResizablePanel> | null>(null)
 const navCollapsedSize = 4
 const isCollapsed = ref(false)
 
@@ -93,7 +92,7 @@ const links: LinkProp[] = [
                     :default-size="defaultLayout[0]"
                     :collapsed-size="navCollapsedSize"
                     collapsible
-                    :min-size="13"
+                    :min-size="10"
                     :max-size="20"
                     class="transition-all duration-300 ease-in-out"
                     :class="cn(isCollapsed && 'min-w-[50px]')"
