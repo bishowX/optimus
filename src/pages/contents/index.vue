@@ -118,6 +118,11 @@ watch(
         table.getColumn("title")?.setFilterValue(n || "")
     },
 )
+
+const searchInputEl = ref<HTMLInputElement | null>(null)
+watch(searchInputEl, (n) => {
+    n?.focus()
+})
 </script>
 
 <template>
@@ -129,6 +134,7 @@ watch(
                     placeholder="Filter by title"
                     :model-value="table.getColumn('title')?.getFilterValue() as string"
                     @update:model-value="table.getColumn('title')?.setFilterValue($event)"
+                    ref="searchInputEl"
                 />
                 <LoaderCircle v-if="loading" class="h-8 w-8 animate-spin" />
             </div>

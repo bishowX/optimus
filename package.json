@@ -57,7 +57,7 @@
         "universal-cookie": "^7.2.0",
         "valibot": "^0.36.0",
         "vee-validate": "^4.13.2",
-        "vue": "^3.4.31",
+        "vue": "^3.5.10",
         "vue-router": "^4.4.0",
         "vue-sonner": "^1.1.5",
         "vue3-draggable-resizable": "^1.6.5"
