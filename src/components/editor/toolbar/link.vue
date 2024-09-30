@@ -117,7 +117,7 @@ const shouldShowLinkToolbar: InstanceType<typeof BubbleMenu>["$props"]["shouldSh
 
 <template>
     <BubbleMenu :should-show="dialogOpen ? () => false : shouldShowLinkToolbar" :editor="editor">
-        <div class="flex gap-x-1 items-center rounded-md border bg-background p-1">
+        <div class="flex items-center gap-x-1 rounded-md border bg-background p-1">
             <Tooltip>
                 <TooltipTrigger as-child>
                     <Toggle
@@ -169,7 +169,7 @@ const shouldShowLinkToolbar: InstanceType<typeof BubbleMenu>["$props"]["shouldSh
                         @update:pressed="dialogOpen = true"
                         :disabled="editor.isActive('link')"
                     >
-                        <Link class="w-4 h-4" />
+                        <Link class="h-4 w-4" />
                     </Button>
                 </TooltipTrigger>
                 <TooltipContent> Create link </TooltipContent>

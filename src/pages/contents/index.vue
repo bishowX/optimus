@@ -122,7 +122,7 @@ watch(
 
 <template>
     <div class="w-full">
-        <div class="flex gap-2 items-center py-4">
+        <div class="flex items-center gap-2 py-4">
             <div class="flex items-center gap-4">
                 <Input
                     class="max-w-sm"
@@ -130,7 +130,7 @@ watch(
                     :model-value="table.getColumn('title')?.getFilterValue() as string"
                     @update:model-value="table.getColumn('title')?.setFilterValue($event)"
                 />
-                <LoaderCircle v-if="loading" class="w-8 h-8 animate-spin" />
+                <LoaderCircle v-if="loading" class="h-8 w-8 animate-spin" />
             </div>
             <DropdownMenu>
                 <DropdownMenuTrigger as-child>
@@ -222,7 +222,7 @@ watch(
         </div>
 
         <Alert v-if="error" variant="destructive">
-            <AlertCircle class="w-4 h-4" />
+            <AlertCircle class="h-4 w-4" />
             <AlertTitle>Error</AlertTitle>
             <AlertDescription>
                 {{ error }}

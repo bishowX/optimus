@@ -14,7 +14,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="w-full flex-grow flex items-center justify-center">
+    <div class="flex w-full flex-grow items-center justify-center">
         <h1>Logging out...</h1>
     </div>
 </template>

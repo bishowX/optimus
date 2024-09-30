@@ -1,6 +1,6 @@
 // const animate = require("tailwindcss-animate")
-import animate from "tailwindcss-animate"
 import typogrophy from "@tailwindcss/typography"
+import animate from "tailwindcss-animate"
 
 const config: import("tailwindcss").Config = {
     darkMode: ["class"],

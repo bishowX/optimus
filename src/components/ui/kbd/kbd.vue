@@ -11,7 +11,7 @@ const props = defineProps<{
     <kbd
         :class="
             cn(
-                'inline-flex items-center rounded-sm border px-2.5 py-0.5 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground',
+                'inline-flex items-center rounded-sm border px-2.5 py-0.5 text-sm font-semibold text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
                 props.class,
             )
         "

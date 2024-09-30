@@ -1,19 +1,19 @@
 <template>
-    <div v-show="isLoading" class="fixed top-0 left-0 w-full h-1 z-50 overflow-hidden">
+    <div v-show="isLoading" class="fixed left-0 top-0 z-50 h-1 w-full overflow-hidden">
         <!-- The primary progress bar line that grows in width based on progress value -->
         <div
-            class="absolute rounded-full bottom-0 left-0 h-full bg-blue-400 transition-all duration-300 ease-out"
+            class="absolute bottom-0 left-0 h-full rounded-full bg-blue-400 transition-all duration-300 ease-out"
             :style="{ width: `${progress}%` }"
         ></div>
 
         <!-- The secondary animated line that appears after progress reaches a certain threshold -->
         <div
             v-show="showSecondLine"
-            class="absolute rounded-full top-0 left-0 h-full overflow-hidden transition-all duration-300 ease-out"
+            class="absolute left-0 top-0 h-full overflow-hidden rounded-full transition-all duration-300 ease-out"
             :style="{ width: `${progress}%` }"
         >
             <div
-                class="rounded-full w-full h-full bg-gradient-to-r from-transparent via-blue-700 to-transparent animate-moveRight"
+                class="animate-moveRight h-full w-full rounded-full bg-gradient-to-r from-transparent via-blue-700 to-transparent"
             ></div>
         </div>
     </div>

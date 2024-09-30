@@ -55,7 +55,7 @@ const links: LinkProp[] = [
         <!-- top nav -->
         <div class="border-b">
             <div class="flex h-16 items-center px-4">
-                <nav class="flex items-center space-x-4 lg:space-x-6)">
+                <nav class="lg:space-x-6) flex items-center space-x-4">
                     <h1 class="text-4xl"><RouterLink to="/">Optimus</RouterLink></h1>
                     <Separator :decorative="true" orientation="vertical" class="h-10" />
                     <RouterLink
@@ -113,7 +113,7 @@ const links: LinkProp[] = [
                 <ResizablePanel id="resize-panel-3" :default-size="defaultLayout[1]">
                     <!-- Content -->
                     <div
-                        class="custom-scrollbar p-4 h-full overflow-y-auto max-h-[calc(100vh-65px)]"
+                        class="custom-scrollbar h-full max-h-[calc(100vh-65px)] overflow-y-auto p-4"
                     >
                         <RouterView />
                     </div>

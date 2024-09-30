@@ -1,12 +1,12 @@
 import { fileURLToPath, URL } from "node:url"
 
-import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
 import vueJsx from "@vitejs/plugin-vue-jsx"
-import vueDevTools from "vite-plugin-vue-devtools"
-import VueRouter from "unplugin-vue-router/vite"
-import Layouts from "vite-plugin-vue-layouts"
 import { visualizer } from "rollup-plugin-visualizer"
+import VueRouter from "unplugin-vue-router/vite"
+import { defineConfig } from "vite"
+import vueDevTools from "vite-plugin-vue-devtools"
+import Layouts from "vite-plugin-vue-layouts"
 
 // https://vitejs.dev/config/
 export default defineConfig({

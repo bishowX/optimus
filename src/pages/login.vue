@@ -118,11 +118,11 @@ const loginAsAdmin = () => {
 </script>
 
 <template>
-    <form @submit="onSubmit" class="flex-grow w-full flex justify-center items-center">
-        <Card class="mx-auto w-full my-auto max-w-md">
+    <form @submit="onSubmit" class="flex w-full flex-grow items-center justify-center">
+        <Card class="mx-auto my-auto w-full max-w-md">
             <CardHeader v-auto-animate>
                 <Alert v-if="error" variant="destructive">
-                    <AlertCircle class="w-4 h-4" />
+                    <AlertCircle class="h-4 w-4" />
                     <AlertTitle>Error</AlertTitle>
                     <AlertDescription>
                         {{ error }}
@@ -169,9 +169,9 @@ const loginAsAdmin = () => {
                     </Button>
 
                     <div class="flex items-center gap-2">
-                        <Separator class="shrink h-0.5 w-full" orientation="horizontal" />
+                        <Separator class="h-0.5 w-full shrink" orientation="horizontal" />
                         <p class="shrink-0 text-sm text-muted-foreground">Or use dummy accounts</p>
-                        <Separator class="shrink h-0.5 w-full" orientation="horizontal" />
+                        <Separator class="h-0.5 w-full shrink" orientation="horizontal" />
                     </div>
 
                     <div class="flex items-center justify-between gap-4">

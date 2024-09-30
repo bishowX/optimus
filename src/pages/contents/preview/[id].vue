@@ -141,8 +141,8 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div v-if="content" class="prose dark:prose-invert mx-auto max-w-4xl pt-4">
-        <span class="text-sm text-gray-500 inline-block mb-2">{{
+    <div v-if="content" class="prose mx-auto max-w-4xl pt-4 dark:prose-invert">
+        <span class="mb-2 inline-block text-sm text-gray-500">{{
             formatDate(content.published_on)
         }}</span>
         <h1>{{ content.title }}</h1>
@@ -152,20 +152,20 @@ onUnmounted(() => {
     <div
         v-else-if="!error && !loading"
         ref="containerRef"
-        class="flex flex-col items-center justify-center bg-background relative overflow-hidden h-full"
+        class="relative flex h-full flex-col items-center justify-center overflow-hidden bg-background"
     >
-        <canvas ref="canvasRef" class="absolute top-0 left-0 w-full h-full"></canvas>
+        <canvas ref="canvasRef" class="absolute left-0 top-0 h-full w-full"></canvas>
         <div class="z-10 text-center">
-            <h1 class="text-4xl font-bold text-foreground mb-4">
+            <h1 class="mb-4 text-4xl font-bold text-foreground">
                 <span class="inline-block animate-bounce">4</span>
                 <span class="inline-block animate-ping">0</span>
                 <span class="inline-block animate-spin">4</span>
-                <span class="inline-block animate-pulse ml-2">Page Not Found</span>
+                <span class="ml-2 inline-block animate-pulse">Page Not Found</span>
             </h1>
-            <p class="text-xl text-muted-foreground mb-2">
+            <p class="mb-2 text-xl text-muted-foreground">
                 Oops! The content you're looking for doesn't exist.
             </p>
-            <p class="text-sm text-muted-foreground mb-8">
+            <p class="mb-8 text-sm text-muted-foreground">
                 This is likely caused because of you fucking up the url.
             </p>
             <RouterLink
@@ -177,7 +177,7 @@ onUnmounted(() => {
         </div>
     </div>
     <Alert v-if="error" variant="destructive">
-        <AlertCircle class="w-4 h-4" />
+        <AlertCircle class="h-4 w-4" />
         <AlertTitle>Error</AlertTitle>
         <AlertDescription>
             {{ error }}

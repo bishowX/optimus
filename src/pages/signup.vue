@@ -111,11 +111,11 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-    <form @submit="onSubmit" class="flex-grow flex justify-center items-center">
+    <form @submit="onSubmit" class="flex flex-grow items-center justify-center">
         <Card class="mx-auto my-auto max-w-md">
             <CardHeader>
                 <Alert v-auto-animate v-show="error" variant="destructive">
-                    <AlertCircle class="w-4 h-4" />
+                    <AlertCircle class="h-4 w-4" />
                     <AlertTitle>Error</AlertTitle>
                     <AlertDescription>
                         {{ error }}

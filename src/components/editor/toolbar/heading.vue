@@ -81,7 +81,7 @@ const handleHeadingLevelSelection = (level: string) => {
         <DropdownMenuTrigger as-child>
             <Button class="min-w-[133.93px]" variant="ghost"
                 >{{ level === "0" ? "Normal text" : `Heading ${level}` }}
-                <ChevronDown class="w-4 h-4 ml-2"
+                <ChevronDown class="ml-2 h-4 w-4"
             /></Button>
         </DropdownMenuTrigger>
 

@@ -41,7 +41,7 @@ const makeChart = () => {
 </script>
 
 <template>
-    <div class="w-full flex items-center gap-2 overflow-x-auto sticky -top-2 z-10">
+    <div class="sticky -top-2 z-10 flex w-full items-center gap-2 overflow-x-auto">
         <Heading :editor="editor" />
         <Separator class="h-6" orientation="vertical" />
         <div class="flex items-center gap-2">
@@ -212,7 +212,7 @@ const makeChart = () => {
             <Tooltip>
                 <TooltipTrigger as-child>
                     <Button @click="makeChart" variant="ghost" size="icon">
-                        <LineChart class="w-4 h-4" />
+                        <LineChart class="h-4 w-4" />
                     </Button>
                 </TooltipTrigger>
                 <TooltipContent> Add line chart <Kbd>Ctrl + Alt + L</Kbd> </TooltipContent>

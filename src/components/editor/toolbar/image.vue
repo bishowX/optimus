@@ -76,7 +76,7 @@ const drop = (e: DragEvent) => {
             <DialogTrigger as-child>
                 <TooltipTrigger as-child>
                     <Button variant="ghost" size="icon">
-                        <ImagePlus class="w-4 h-4" />
+                        <ImagePlus class="h-4 w-4" />
                     </Button>
                 </TooltipTrigger>
                 <TooltipContent> Add image </TooltipContent>
@@ -115,7 +115,7 @@ const drop = (e: DragEvent) => {
                     <input
                         type="file"
                         accept="image/*"
-                        class="absolute z-10 inset-0 h-full w-full cursor-pointer opacity-0"
+                        class="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0"
                         @change="handleFileChange"
                     />
                 </div>

@@ -2,10 +2,10 @@ import { Hono } from "hono"
 import { logger } from "hono/logger"
 import { prettyJSON } from "hono/pretty-json"
 
+import { config } from "dotenv"
 import OpenAI from "openai"
 import { instruction } from "./instruction"
 import { tools } from "./tools"
-import { config } from "dotenv"
 
 config({
     path: "../.env.local",

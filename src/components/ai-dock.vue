@@ -9,7 +9,7 @@
             "
         >
             <div
-                class="relative bg-background flex items-center rounded-lg shadow-lg transition-all duration-300 ease-in-out"
+                class="relative flex items-center rounded-lg bg-background shadow-lg transition-all duration-300 ease-in-out"
             >
                 <Input
                     :disabled="loading"
@@ -20,7 +20,7 @@
                     placeholder="Enter your prompt here..."
                     class="w-full resize-none transition-all duration-300 ease-in-out"
                 />
-                <LoaderCircle v-if="loading" class="w-8 h-8 -ml-9 animate-spin" />
+                <LoaderCircle v-if="loading" class="-ml-9 h-8 w-8 animate-spin" />
             </div>
         </div>
     </div>
