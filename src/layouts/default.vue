@@ -11,6 +11,8 @@ import SideNav from "@/components/layout/side-nav.vue"
 import UserNav from "@/components/layout/user-nav.vue"
 import ThemeSwitcher from "@/components/layout/theme-switcher.vue"
 import { useMediaQuery } from "@vueuse/core"
+import CommandPalette from "@/components/command-palette.vue"
+import AiDock from "@/components/ai-dock.vue"
 
 const defaultLayout = [10, 90]
 const navPanelRef = ref<InstanceType<typeof ResizablePanel> | null>(null)
@@ -51,6 +53,9 @@ const links: LinkProp[] = [
 
 <template>
     <div class="flex flex-col">
+        <CommandPalette />
+        <AiDock />
+
         <!-- top nav -->
         <div class="border-b">
             <div class="flex h-16 items-center px-4">
