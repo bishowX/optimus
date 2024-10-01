@@ -54,7 +54,7 @@ const links: LinkProp[] = [
 <template>
     <div class="flex flex-col">
         <CommandPalette />
-        <AiDock />
+        <!-- <AiDock /> -->
 
         <!-- top nav -->
         <div class="border-b">
