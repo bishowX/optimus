@@ -15,12 +15,12 @@ export default defineConfig({
         vue(),
         vueJsx(),
         vueDevTools(),
+        visualizer(),
         Layouts({
             defaultLayout: "default",
             layoutsDirs: "src/layouts",
             pagesDirs: "src/pages",
         }),
-        visualizer(),
     ],
     resolve: {
         alias: {

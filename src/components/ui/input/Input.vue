@@ -19,7 +19,7 @@ const modelValue = useVModel(props, "modelValue", emits, {
 })
 
 // const _ref = ref<HTMLInputElement | null>(null)
-const a = useTemplateRef("a")
+const a = useTemplateRef<HTMLInputElement>("a")
 
 defineExpose({
     focus() {
