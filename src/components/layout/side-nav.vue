@@ -1,9 +1,10 @@
 <script lang="ts" setup>
+import { RouterLink } from "vue-router"
 import { Icon } from "@iconify/vue"
 import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
-import { RouterLink } from "vue-router"
+import { Separator } from "@/components/ui/separator"
 
 export interface LinkProp {
     title: string
@@ -18,16 +19,47 @@ interface NavProps {
 }
 
 defineProps<NavProps>()
+
+const emits = defineEmits<{
+    (e: "toggleCollapse"): void
+}>()
 </script>
 
 <template>
-    <div
+    <aside
         :data-collapsed="isCollapsed"
-        class="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2"
+        class="grid gap-3 py-3 data-[collapsed=true]:justify-center"
     >
-        <nav
-            class="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2"
+        <div
+            class="flex items-center gap-x-4 gap-y-2"
+            :class="isCollapsed ? 'flex-col px-1' : 'flex-row justify-between pl-5 pr-2'"
         >
+            <h1 class="text-2xl transition-all duration-300 ease-in-out">
+                <RouterLink to="/">{{ isCollapsed ? "O" : "Optimus" }}</RouterLink>
+            </h1>
+            <Tooltip v-if="isCollapsed">
+                <TooltipTrigger as-child>
+                    <Button @click="emits('toggleCollapse')" variant="ghost" size="icon">
+                        <Icon icon="lucide:panel-left-open" class="size-5" />
+                        <span class="sr-only">Expand side bar</span>
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent side="right"> Expand sidebar </TooltipContent>
+            </Tooltip>
+            <Tooltip v-else>
+                <TooltipTrigger as-child>
+                    <Button @click="() => emits('toggleCollapse')" variant="ghost" size="icon">
+                        <Icon icon="lucide:panel-left-close" class="size-5" />
+                        <span class="sr-only">Collapse side bar</span>
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent side="right"> Collapse sidebar </TooltipContent>
+            </Tooltip>
+        </div>
+
+        <Separator orientation="horizontal" />
+
+        <div class="flex flex-col gap-1" :class="isCollapsed ? 'px-1' : 'px-2'">
             <template v-for="(link, index) of links">
                 <Tooltip v-if="isCollapsed" :key="`1-${index}`" :delay-duration="0">
                     <TooltipTrigger>
@@ -51,7 +83,7 @@ defineProps<NavProps>()
                                     )
                                 "
                             >
-                                <Icon :icon="link.icon" class="size-4" />
+                                <Icon :icon="link.icon" class="size-5" />
                                 <span class="sr-only">{{ link.title }}</span>
                             </a>
                         </RouterLink>
@@ -86,7 +118,7 @@ defineProps<NavProps>()
                             )
                         "
                     >
-                        <Icon :icon="link.icon" class="mr-2 size-4" />
+                        <Icon :icon="link.icon" class="mr-2 size-5" />
                         {{ link.title }}
                         <span
                             v-if="link.label"
@@ -97,6 +129,6 @@ defineProps<NavProps>()
                     </a>
                 </RouterLink>
             </template>
-        </nav>
-    </div>
+        </div>
+    </aside>
 </template>
