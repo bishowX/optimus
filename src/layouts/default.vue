@@ -85,13 +85,7 @@ const links: LinkProp[] = [
                         :links="links"
                     />
                 </ResizablePanel>
-                <ResizableHandle
-                    id="resize-handle-1"
-                    with-handle
-                    @click="
-                        navPanelRef?.isCollapsed ? navPanelRef?.expand() : navPanelRef?.collapse()
-                    "
-                />
+                <ResizableHandle id="resize-handle-1" with-handle />
 
                 <ResizablePanel id="resize-panel-3" :default-size="defaultLayout[1]">
                     <!-- Content -->

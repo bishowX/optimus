@@ -39,7 +39,7 @@ const emits = defineEmits<{
             </h1>
             <Tooltip v-if="isCollapsed">
                 <TooltipTrigger as-child>
-                    <Button @click="emits('toggleCollapse')" variant="ghost" size="icon">
+                    <Button @click="() => emits('toggleCollapse')" variant="ghost" size="icon">
                         <Icon icon="lucide:panel-left-open" class="size-5" />
                         <span class="sr-only">Expand side bar</span>
                     </Button>
