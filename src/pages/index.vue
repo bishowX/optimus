@@ -29,8 +29,8 @@
                     <AreaChart
                         :data="pageViewsData"
                         index="date"
-                        :categories="['views']"
-                        :colors="['orange']"
+                        :categories="['views', 'slug']"
+                        :colors="['orange', 'teal']"
                         :y-formatter="(value) => `${value.toLocaleString()}`"
                     />
                 </CardContent>
