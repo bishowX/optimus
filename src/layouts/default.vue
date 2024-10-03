@@ -74,7 +74,7 @@ const links: LinkProp[] = [
                     collapsible
                     :min-size="10"
                     :max-size="20"
-                    class="transition-all duration-300 ease-in-out"
+                    class="max-h-screen transition-all duration-300 ease-in-out"
                     :class="cn(isCollapsed && 'min-w-[50px]')"
                     @expand="onExpand"
                     @collapse="onCollapse"
@@ -89,9 +89,7 @@ const links: LinkProp[] = [
 
                 <ResizablePanel id="resize-panel-3" :default-size="defaultLayout[1]">
                     <!-- Content -->
-                    <div
-                        class="custom-scrollbar h-full max-h-[calc(100vh-65px)] overflow-y-auto p-4"
-                    >
+                    <div class="custom-scrollbar h-full max-h-screen overflow-y-auto p-4">
                         <RouterView />
                     </div>
                 </ResizablePanel>
