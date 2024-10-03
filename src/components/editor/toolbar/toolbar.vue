@@ -41,7 +41,9 @@ const makeChart = () => {
 </script>
 
 <template>
-    <div class="sticky -top-2 z-10 flex w-full items-center gap-2 overflow-x-auto">
+    <div
+        class="sticky -top-2 z-10 flex h-10 w-full items-center gap-2 overflow-x-auto bg-background"
+    >
         <Heading :editor="editor" />
         <Separator class="h-6" orientation="vertical" />
         <div class="flex items-center gap-2">
