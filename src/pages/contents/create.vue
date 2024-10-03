@@ -61,7 +61,16 @@ const handleFormSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-    <form @submit="handleFormSubmit" class="space-y-6">
+    <div class="flex w-full items-center justify-between border-b px-4 py-3">
+        <h1 class="text-2xl">Create content</h1>
+        <div class="flex items-center gap-4">
+            <Button :disabled="loading" @click="handleFormSubmit">
+                <span v-if="loading">Saving</span>
+                <span v-else>Save</span>
+            </Button>
+        </div>
+    </div>
+    <form @submit="handleFormSubmit" class="space-y-6 p-4">
         <!-- Title -->
         <FormField v-slot="{ componentField }" name="title">
             <FormItem v-auto-animate>
@@ -118,10 +127,5 @@ const handleFormSubmit = handleSubmit(async (values) => {
                 <FormMessage />
             </FormItem>
         </FormField>
-
-        <Button :disabled="loading" type="submit">
-            <span v-if="loading">Saving</span>
-            <span v-else>Save</span>
-        </Button>
     </form>
 </template>

@@ -89,7 +89,7 @@ const links: LinkProp[] = [
 
                 <ResizablePanel id="resize-panel-3" :default-size="defaultLayout[1]">
                     <!-- Content -->
-                    <div class="custom-scrollbar h-full max-h-screen overflow-y-auto p-4">
+                    <div class="custom-scrollbar h-full max-h-screen overflow-y-auto">
                         <RouterView />
                     </div>
                 </ResizablePanel>

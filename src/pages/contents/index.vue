@@ -127,17 +127,24 @@ watch(searchInputEl, (n) => {
 
 <template>
     <div class="w-full">
-        <div class="flex items-center gap-2 py-4">
+        <div class="flex w-full items-center justify-between border-b px-4 py-3">
+            <h1 class="text-2xl">Contents</h1>
             <div class="flex items-center gap-4">
-                <Input
-                    class="max-w-sm"
-                    placeholder="Filter by title"
-                    :model-value="table.getColumn('title')?.getFilterValue() as string"
-                    @update:model-value="table.getColumn('title')?.setFilterValue($event)"
-                    ref="searchInputEl"
-                />
-                <LoaderCircle v-if="loading" class="h-8 w-8 animate-spin" />
+                <div class="flex items-center gap-4">
+                    <Input
+                        class="max-w-sm"
+                        placeholder="Filter by title"
+                        :model-value="table.getColumn('title')?.getFilterValue() as string"
+                        @update:model-value="table.getColumn('title')?.setFilterValue($event)"
+                        ref="searchInputEl"
+                    />
+                    <LoaderCircle v-if="loading" class="size-8 animate-spin" />
+                    <div v-else class="size-8"></div>
+                </div>
             </div>
+        </div>
+
+        <div class="flex items-center gap-2 p-4">
             <DropdownMenu>
                 <DropdownMenuTrigger as-child>
                     <Button variant="outline" class="ml-auto">
@@ -163,7 +170,7 @@ watch(searchInputEl, (n) => {
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>
-        <div class="rounded-md border" v-if="!loading && contents.length">
+        <div class="mx-4 rounded-md border" v-if="!loading && contents.length">
             <Table>
                 <TableHeader>
                     <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
