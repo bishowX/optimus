@@ -9,8 +9,10 @@ defineProps<{
     label?: string
     icon: string
     link: string
+    collapsed?: boolean
 }>()
 </script>
+
 <template>
     <RouterLink custom :to="link" v-slot="{ isExactActive: isActive, href, navigate }">
         <a
@@ -23,19 +25,19 @@ defineProps<{
                         ? buttonVariants({ variant: 'default', size: 'sm' })
                         : buttonVariants({ variant: 'ghost', size: 'sm' }),
                     'justify-start',
-                    isActive &&
-                        'dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white',
                 )
             "
         >
-            <Icon :icon="icon" class="mr-2 size-5" />
-            {{ title }}
-            <span
-                v-if="label"
-                :class="cn('ml-auto', isActive && 'text-background dark:text-white')"
-            >
-                {{ label }}
-            </span>
+            <Icon :icon="icon" :class="cn(!collapsed && 'mr-2', 'size-5')" />
+            <template v-if="!collapsed">
+                {{ title }}
+                <span
+                    v-if="label"
+                    :class="cn('ml-auto', isActive && 'text-background dark:text-white')"
+                >
+                    {{ label }}
+                </span>
+            </template>
         </a>
     </RouterLink>
 </template>
