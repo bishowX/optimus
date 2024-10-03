@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router"
-import { useMagicKeys } from "@vueuse/core"
+import { useColorMode, useMagicKeys } from "@vueuse/core"
 
 import { ref, watch } from "vue"
 import {
@@ -35,6 +35,8 @@ function navigateTo(path: string) {
     open.value = false
     router.push(path)
 }
+
+const mode = useColorMode()
 </script>
 
 <template>
@@ -65,6 +67,13 @@ function navigateTo(path: string) {
                     <CommandItem value="logout" @select="() => navigateTo('/logout')">
                         Logout
                     </CommandItem>
+                    <CommandItem value="settings"> Settings </CommandItem>
+                    <CommandItem value="billing"> Billing </CommandItem>
+                </CommandGroup>
+                <CommandGroup heading="Theme">
+                    <CommandItem value="dark" @select="mode = 'dark'"> Dark theme </CommandItem>
+                    <CommandItem value="light" @select="mode = 'light'"> Light theme </CommandItem>
+                    <CommandItem value="system" @select="mode = 'auto'"> System theme </CommandItem>
                     <CommandItem value="settings"> Settings </CommandItem>
                     <CommandItem value="billing"> Billing </CommandItem>
                 </CommandGroup>
