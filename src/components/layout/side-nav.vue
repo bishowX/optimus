@@ -82,10 +82,10 @@ const emits = defineEmits<{
                             <SidenavItem
                                 icon="lucide:file-search"
                                 label="99"
-                                link="/about"
+                                link="/overview"
                                 title="Data visualization"
                             />
-                            <SidenavItem icon="lucide:activity" link="/overview" title="Event" />
+                            <SidenavItem icon="lucide:activity" link="/about" title="Event" />
                             <SidenavItem
                                 icon="lucide:airplay"
                                 link="/contents"
@@ -118,10 +118,10 @@ const emits = defineEmits<{
                     <SidenavItem
                         icon="lucide:file-search"
                         label="99"
-                        link="/401"
+                        link="/overview"
                         title="Data visualization"
                     />
-                    <SidenavItem icon="lucide:activity" link="400" title="Event" />
+                    <SidenavItem icon="lucide:activity" link="/about" title="Event" />
                     <SidenavItem icon="lucide:airplay" link="404" title="Other content" />
                 </CollapsibleContent>
             </Collapsible>
