@@ -74,8 +74,6 @@ const mode = useColorMode()
                     <CommandItem value="dark" @select="mode = 'dark'"> Dark theme </CommandItem>
                     <CommandItem value="light" @select="mode = 'light'"> Light theme </CommandItem>
                     <CommandItem value="system" @select="mode = 'auto'"> System theme </CommandItem>
-                    <CommandItem value="settings"> Settings </CommandItem>
-                    <CommandItem value="billing"> Billing </CommandItem>
                 </CommandGroup>
                 <CommandGroup heading="Contents">
                     <CommandItem value="list-all-contents" @select="() => navigateTo('/contents')"
