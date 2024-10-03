@@ -9,7 +9,7 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/componen
 import SideNav from "@/components/layout/side-nav.vue"
 import CommandPalette from "@/components/command-palette.vue"
 
-const defaultLayout = [12, 85]
+const defaultLayout = [15, 85]
 const navPanelRef = ref<InstanceType<typeof ResizablePanel> | null>(null)
 const navCollapsedSize = 4
 const isCollapsed = ref(false)
