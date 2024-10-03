@@ -1,6 +1,8 @@
+import type { Component } from "vue"
 import TiptapImage from "@tiptap/extension-image"
 import { VueNodeViewRenderer } from "@tiptap/vue-3"
 import { Plugin } from "prosemirror-state"
+
 import ImageRenderer from "./image-renderer.vue"
 
 export const Image = TiptapImage.extend({
@@ -114,6 +116,6 @@ export const Image = TiptapImage.extend({
         }
     },
     addNodeView() {
-        return VueNodeViewRenderer(ImageRenderer)
+        return VueNodeViewRenderer(ImageRenderer as Component)
     },
 })
