@@ -82,7 +82,7 @@ const drop = (e: DragEvent) => {
                 <TooltipContent> Add image </TooltipContent>
             </DialogTrigger>
         </Tooltip>
-        <DialogContent class="sm:max-w-[500px]">
+        <DialogContent class="max-h-full overflow-scroll sm:max-w-[500px]">
             <DialogHeader>
                 <DialogTitle>Upload Image</DialogTitle>
                 <DialogDescription>
@@ -94,7 +94,7 @@ const drop = (e: DragEvent) => {
                     @dragenter="dragenter"
                     @dragover="dragover"
                     @drop="drop"
-                    class="group relative flex h-64 cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-muted transition-colors hover:border-primary"
+                    class="group relative flex cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-muted transition-colors hover:border-primary md:h-64"
                 >
                     <img
                         class="h-full rounded-md"
