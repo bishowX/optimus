@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useStorage } from "@vueuse/core"
+import { useLocalContent } from "@/composables/useLocalContent"
 import type {
     ColumnDef,
     ColumnFiltersState,
@@ -37,8 +37,6 @@ import {
 import { valueUpdater } from "@/lib/utils"
 import type { Content } from "@/data/content"
 import { useRoute, useRouter } from "vue-router"
-import { api } from "@/lib/axios"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 const columns: ColumnDef<Content>[] = [
     {
@@ -53,7 +51,7 @@ const columnFilters = ref<ColumnFiltersState>([])
 const columnVisibility = ref<VisibilityState>({})
 const rowSelection = ref({})
 
-const contents = ref<Content[]>([])
+const { contents } = useLocalContent()
 
 const table = useVueTable({
     get data() {
@@ -90,21 +88,7 @@ const onRowClick = (id: string) => {
     router.push(`/contents/preview/${id}`)
 }
 
-const loading = ref(false)
-const error = ref("")
-onMounted(async () => {
-    try {
-        error.value = ""
-        loading.value = true
-        const res = await api.get("/contents")
-
-        contents.value = res.data
-    } catch (e: any) {
-        error.value = e?.message || "Something went wrong"
-    } finally {
-        loading.value = false
-    }
-})
+// No loading or error handling needed for localStorage
 
 const route = useRoute()
 
@@ -138,8 +122,7 @@ watch(searchInputEl, (n) => {
                         @update:model-value="table.getColumn('title')?.setFilterValue($event)"
                         ref="searchInputEl"
                     />
-                    <LoaderCircle v-if="loading" class="size-8 animate-spin" />
-                    <div v-else class="size-8"></div>
+                    <div class="size-8"></div>
                 </div>
             </div>
         </div>
@@ -170,7 +153,7 @@ watch(searchInputEl, (n) => {
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>
-        <div class="mx-4 rounded-md border" v-if="!loading && contents.length">
+        <div class="mx-4 rounded-md border" v-if="contents.length">
             <Table>
                 <TableHeader>
                     <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
@@ -211,7 +194,7 @@ watch(searchInputEl, (n) => {
         </div>
 
         <div
-            v-if="!loading && contents.length"
+            v-if="contents.length"
             class="flex items-center justify-end space-x-2 py-4"
         >
             <div class="space-x-2">
@@ -234,12 +217,5 @@ watch(searchInputEl, (n) => {
             </div>
         </div>
 
-        <Alert v-if="error" variant="destructive">
-            <AlertCircle class="h-4 w-4" />
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>
-                {{ error }}
-            </AlertDescription>
-        </Alert>
     </div>
 </template>

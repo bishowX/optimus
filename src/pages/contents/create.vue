@@ -18,10 +18,9 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Editor } from "@/components/editor"
-import { useStorage } from "@vueuse/core"
 import { useRouter } from "vue-router"
 import type { Content } from "@/data/content"
-import { api } from "@/lib/axios"
+import { useLocalContent } from "@/composables/useLocalContent"
 
 const formSchema = toTypedSchema(
     v.object({
@@ -47,12 +46,18 @@ const { handleSubmit, values, setFieldValue } = useForm({
 const slug = computed(() => slugify(values.title as string, { lower: true }))
 
 const router = useRouter()
+const { saveContent } = useLocalContent()
 
 const loading = ref(false)
 const handleFormSubmit = handleSubmit(async (values) => {
     try {
         loading.value = true
-        await api.post("/contents", values)
+        const savedContent = saveContent({
+            title: values.title,
+            snippet: values.snippet,
+            content: values.content,
+            slug: slug.value
+        })
         router.push("/contents")
     } finally {
         loading.value = false

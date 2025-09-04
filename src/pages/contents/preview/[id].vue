@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import type { Content } from "@/data/content"
-import { useStorage } from "@vueuse/core"
 import { useRoute } from "vue-router/auto"
 import { format } from "date-fns"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { ref, onMounted, onUnmounted } from "vue"
-import { api } from "@/lib/axios"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle } from "lucide-vue-next"
+import { useLocalContent } from "@/composables/useLocalContent"
 
 const route = useRoute()
 const id = (route.params as { id: string }).id
@@ -114,24 +111,15 @@ const animate = () => {
     animationFrameId = requestAnimationFrame(animate)
 }
 
-const loading = ref(false)
-const error = ref("")
+const { getContent } = useLocalContent()
 
-onMounted(async () => {
+onMounted(() => {
     initCanvas()
     animate()
     window.addEventListener("resize", initCanvas)
 
-    try {
-        error.value = ""
-        loading.value = true
-        const res = await api.get(`/contents/${id}`)
-        content.value = res.data
-    } catch (e: any) {
-        error.value = e?.message || "Something went wrong! Please try again later."
-    } finally {
-        loading.value = false
-    }
+    // Get content from localStorage
+    content.value = getContent(id) || null
 })
 
 onUnmounted(() => {
@@ -150,7 +138,7 @@ onUnmounted(() => {
         <div v-html="content.content" v-parse-line-chart></div>
     </div>
     <div
-        v-else-if="!error && !loading"
+        v-else
         ref="containerRef"
         class="relative flex h-full flex-col items-center justify-center overflow-hidden bg-background"
     >
@@ -176,13 +164,6 @@ onUnmounted(() => {
             </RouterLink>
         </div>
     </div>
-    <Alert v-if="error" variant="destructive">
-        <AlertCircle class="h-4 w-4" />
-        <AlertTitle>Error</AlertTitle>
-        <AlertDescription>
-            {{ error }}
-        </AlertDescription>
-    </Alert>
 </template>
 
 <style scoped>
