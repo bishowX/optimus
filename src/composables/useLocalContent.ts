@@ -1,4 +1,3 @@
-import { readonly } from 'vue'
 import { useStorage } from '@vueuse/core'
 import type { Content } from '@/data/content'
 
@@ -8,7 +7,7 @@ export function useLocalContent() {
   // Initialize localStorage with empty array if not exists
   const contents = useStorage<Content[]>(STORAGE_KEY, [])
 
-  const saveContent = (content: Omit<Content, 'id' | 'published_on' | 'updated_on'>) => {
+  const saveContent = (content: Omit<Content, 'id' | 'published_on' | 'updated_on' | 'author'>) => {
     const now = new Date().toISOString()
     const newContent: Content = {
       ...content,
@@ -48,7 +47,7 @@ export function useLocalContent() {
   }
 
   return {
-    contents: readonly(contents),
+    contents,
     saveContent,
     updateContent,
     deleteContent,

@@ -10,16 +10,16 @@ const router = createRouter({
 const { user, fetchUser } = useAuth()
 
 router.beforeEach(async (to, from) => {
-    if (!user.value) {
-        await fetchUser()
-    }
+    // if (!user.value) {
+    //     await fetchUser()
+    // }
 
-    if (user.value) {
-        if (to.path === "/login" || to.path === "/signup") return "/"
-    } else {
-        if (to.path === "/login" || to.path === "/signup") return
-        if (to.path !== "/login") return "/login"
-    }
+    // if (user.value) {
+    //     if (to.path === "/login" || to.path === "/signup") return "/"
+    // } else {
+    //     if (to.path === "/login" || to.path === "/signup") return
+    //     if (to.path !== "/login") return "/login"
+    // }
 })
 
 export { router }
